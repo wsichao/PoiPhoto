@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-table :data="tableData" style="width: 100%" @row-click="onRowClick">
-            <el-table-column v-for="col in cols" :prop="col.prop" :label="col.label" :width="col.width||180" :formatter="col.formatter">
+            <el-table-column v-for="col in cols" :prop="col.prop" :label="col.label" :width="col.width||180" :formatter="col.formatter" :key="index">
             </el-table-column>
         </el-table>
         <el-pagination :page-size="pageSize" :current-page="pageNo" layout="prev, pager, next" :total="tableData.length" @current-change="changePage" v-show="tableData.length>0">

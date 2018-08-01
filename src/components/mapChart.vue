@@ -36,7 +36,7 @@ function initMap(option){
 		subtextStyle: {color: '#000000'},
         text: '',
         textStyle: {
-            color: '#fff',
+            color: '#feb477',
             fontWeight: 'normal',
             fontSize: 20
         },
@@ -67,17 +67,18 @@ function initMap(option){
 		   },
 		   itemStyle: {
 			   normal: {
-                    color: '#FF0000',
-                    areaColor:'#666',
-                    borderColor: 'rgba(0, 0, 0, 0.3)'
+                    color: '#fb4d00',
+                    areaColor:'rgba(30, 50, 60, 0.6)',
+                    borderColor: '#0eb3cf',
+                    borderWidth:1,
 			   },
 			   emphasis:{
-                    areaColor: '#aaa',
+                    areaColor: '#0eb3cf',
                     shadowOffsetX: 0,
                     shadowOffsetY: 0,
-                    shadowBlur: 20,
+                    shadowBlur: 15,
                     borderWidth: 0,
-                    shadowColor: 'rgba(204, 204, 204, 0.5)'
+                    shadowColor: '#fed7b7'
 			    }
            },
            markPoint : {

@@ -44,7 +44,7 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height: content.height || '100%',
+        height: '190px' ,
         width: content.width || '100%',
         position: 'relative'
     }
@@ -66,7 +66,7 @@ function initChart(option){
                 text: '' || option.title,
                 x: 'center',
                 textStyle: {
-                    color: '#fff',
+                    color: '#02fdf6',
                     fontWeight: 'normal',
                     fontSize: 16
                 }
@@ -100,12 +100,21 @@ function initChart(option){
                 barWidth: 10,
                 itemStyle: {
                     normal: {
-                        color: '#009688',
-                        label: {
-                            show: true,
-                            position: 'top'
-                        }
-                    }
+                    color: new echarts.graphic.LinearGradient(
+                      0, 0, 0, 1,
+                    [
+                        {offset: 0, color: '#fb760a'},   
+                        {offset: 1, color: '#02fdf6'}
+                    ]
+                 )
+            },
+            emphasis:{
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 0,
+                    shadowBlur: 15,
+                    borderWidth: 0,
+                    shadowColor: '#fed7b7'
+			    },
                 },
                 data: option.data || []
             }]
