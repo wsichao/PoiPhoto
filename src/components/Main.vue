@@ -171,7 +171,6 @@
       })
     }
 
-
   function getInterfaceError(){
     interfaceError().then(function(res){
       var param = {
@@ -272,9 +271,9 @@
     flex-flow:row; /*伸缩项目单行排列*/
     align-items: center; /* 上下居中 */
     .stable {
-      width:399px; /*固定宽度*/
+      width:350px; /*固定宽度*/
       height: 680px;
-      padding-top: 50px;
+      padding-top: 70px;
       .arrange-v{
         height:30%;
         width: 300px;
@@ -282,7 +281,7 @@
         padding-top: 10px;
         color: #0eb3cf;
         background:rgba(40, 50, 50, 0.66);
-        box-shadow: 1px 1px 20px #0eb3cf;
+        box-shadow: 1px 1px 10px #d2f6fc;
       }
       ul {
         list-style: none;
@@ -329,7 +328,7 @@
       }
       .systemTitle{
         position: absolute;
-        width: 1440px;
+        width: 1490px;
         height: 90px;
         top: 3px;
         background-size: 100% 100%;
@@ -340,13 +339,12 @@
       }
       .jumpToDetail{
         position: absolute;
-        width: 44px;
-        height: 39px;
+        width: 24px;
+        height: 24px;
         background-size: 100%;
-        top: 3%;
-        left: 900px;
-        
-        right: 52px;
+        top: 0.8%;
+        left: 1040px;
+        // right: 52px;
         cursor: pointer;
       }
     }
