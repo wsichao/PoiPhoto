@@ -44,7 +44,7 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height: content.height || '100%',
+        height: '190px' ,
         width: content.width || '100%',
         position: 'relative'
     }
@@ -61,12 +61,13 @@ function initChart(option){
     if(option.data.length>0){
         vueObj[option.ref].noData = false;
         var extendOption = {
+            height:'100px',
             backgroundColor: 'rgba(51,51,51,0)',
             title: { 
                 text: '' || option.title,
                 x: 'center',
                 textStyle: {
-                    color: '#fff',
+                    color: '#02fdf6',
                     fontWeight: 'normal',
                     fontSize: 16
                 }
@@ -74,16 +75,36 @@ function initChart(option){
             tooltip: {},
             xAxis: {
                 type: 'category',
-                data: option.xAxis || []
+                data: option.xAxis || [],
+                splitLine:{show: false},//去除网格线
+                axisLine: {
+                    lineStyle: {
+                        type: 'solid',
+                        color: '#e98f48',//左边线的颜色
+                        width:'2'//坐标线的宽度
+                    }
+                }
             },
             yAxis: {
                 type: 'value',
                 minInterval:1,
+                splitLine:{
+                    lineStyle: {
+                        color: '#e98f48'
+                            }
+                        },//网格线颜色
+                axisLine: {
+                    lineStyle: {
+                        type: 'solid',
+                        color: '#e98f48',//左边线的颜色
+                        width:'2'//坐标线的宽度
+                    }
+                },
                 axisLabel : {
-                    margin:'0',
+                    margin:'7',
                     formatter:function(value){
-                        if(value >1000){
-                            value = value/1000 + ' K';
+                        if(value >=1000){
+                            value = value/1000 + ' K  ';
                         }
                         return value;
                     }
@@ -94,18 +115,31 @@ function initChart(option){
                     show: true,
                 }
             },
+            grid: {
+                x: '15%', //相当于距离左边效果:padding-left
+                y: '25%', //相当于距离上边效果:padding-top
+            },
             series: [{
                 type: 'bar',
-                center: ['20px','60%'],
+                center: [10,60],
                 barWidth: 10,
                 itemStyle: {
                     normal: {
-                        color: '#009688',
-                        label: {
-                            show: true,
-                            position: 'top'
-                        }
-                    }
+                    color: new echarts.graphic.LinearGradient(
+                      0, 0, 0, 1,
+                    [
+                        {offset: 0, color: '#fb760a'},   
+                        {offset: 1, color: '#02fdf6'}
+                    ]
+                 )
+            },
+            emphasis:{
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 0,
+                    shadowBlur: 15,
+                    borderWidth: 0,
+                    shadowColor: '#fed7b7'
+			    },
                 },
                 data: option.data || []
             }]

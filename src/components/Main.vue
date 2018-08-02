@@ -11,8 +11,8 @@
         {{mapDetail}}
         <div class="close" v-on:click="showMapDetail=false"></div>
       </div>
-      <div class="systemTitle" style="background: url(static/title.png);background-size: 440px 100px;"></div>
-      <div class="jumpToDetail" style="background-image: url(static/jump.jpg);" title="跳转至详情页面" v-on:click="jumpToDetail"></div>
+      <div class="systemTitle" style="background: url(static/title.png);background-size: 100% 90px;"></div>
+      <div class="jumpToDetail" style="background-image: url(static/jump.png);" title="跳转至详情页面" v-on:click="jumpToDetail"></div>
     </div>
     <div class="stable">
       <pie-chart class="arrange-v" ref="browser"></pie-chart>
@@ -161,11 +161,15 @@
         },
         option: {
           title: 'Chrome各版本使用占比',
-          data: res.data
-        }
-      });
-    })
-  }
+          data: res.data,
+          radius: ['0', '60%'],
+          center: ['50%', '60%'],
+          name: '',
+          type:'pie',
+          }
+        });
+      })
+    }
 
   function getInterfaceError(){
     interfaceError().then(function(res){
@@ -268,21 +272,23 @@
     align-items: center; /* 上下居中 */
     .stable {
       width:350px; /*固定宽度*/
-      height: 100%;
-      text-align: center;
+      height: 680px;
+      padding-top: 70px;
       .arrange-v{
         height:30%;
         width: 300px;
         margin: 15px auto;
         padding-top: 10px;
-        box-shadow: 0px 0px 4px #009683;
+        color: #0eb3cf;
+        background:rgba(40, 50, 50, 0.66);
+        box-shadow: 1px 1px 10px #d2f6fc;
       }
       ul {
         list-style: none;
         text-align: left;
         li{
           margin: 10px 0px 10px -18px;
-          color: #fff;
+          color: #feb477;
           font-size: 13px;
           line-height: 23px;
           .resultSpan{
@@ -322,22 +328,23 @@
       }
       .systemTitle{
         position: absolute;
-        width: 440px;
-        height: 100px;
-        top: 36px;
-        background-size: 440px 100px;
+        width: 1490px;
+        height: 90px;
+        top: 3px;
+        background-size: 100% 100%;
         right: 0;
+        left: -400px;
         margin: auto;
-        left: 0;
+        
       }
       .jumpToDetail{
         position: absolute;
-        width: 30px;
-        height: 30px;
+        width: 24px;
+        height: 24px;
         background-size: 100%;
-        top: 60px;
-        border-radius: 4px;
-        right: 52px;
+        top: 0.8%;
+        left: 1040px;
+        // right: 52px;
         cursor: pointer;
       }
     }
