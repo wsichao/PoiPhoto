@@ -44,7 +44,7 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height: '190px' ,
+        height: '28%' ,
         width: content.width || '100%',
         position: 'relative'
     }
@@ -61,7 +61,8 @@ function initChart(option){
     if(option.data.length>0){
         vueObj[option.ref].noData = false;
         var extendOption = {
-            height:'100px',
+            height:'50%',
+            width:'70%',
             backgroundColor: 'rgba(51,51,51,0)',
             title: { 
                 text: '' || option.title,
@@ -116,7 +117,7 @@ function initChart(option){
                 }
             },
             grid: {
-                x: '15%', //相当于距离左边效果:padding-left
+                x: '20%', //相当于距离左边效果:padding-left
                 y: '25%', //相当于距离上边效果:padding-top
             },
             series: [{

@@ -11,13 +11,13 @@
         {{mapDetail}}
         <div class="close" v-on:click="showMapDetail=false"></div>
       </div>
-      <div class="systemTitle" style="background: url(static/title.png);background-size: 100% 90px;"></div>
+      <div class="systemTitle" style="background: url(static/title.png);background-size: 100% 100%;"></div>
       <div class="jumpToDetail" style="background-image: url(static/jump.png);" title="跳转至详情页面" v-on:click="jumpToDetail"></div>
     </div>
     <div class="stable">
       <pie-chart class="arrange-v" ref="browser"></pie-chart>
       <bar-chart class="arrange-v" ref="interfaceError"></bar-chart>
-      <div class="arrange-v" style="width:300px;height:30%">
+      <div class="arrange-v" >
         <ul>
           <li><span>近一月接口错误总数：<span class="resultSpan">{{errorTotal}}</span></span></li>
           <li><span>近一月接口平均耗时： <span class="resultSpan">{{averageTime}}</span></span></li>
@@ -82,7 +82,7 @@
         content: {
           id: 'userOnlinePie',
           height:'30%',
-          width: '300px',
+          width: '85%',
           ref: 'userOnline'
         },
         option: {
@@ -100,7 +100,7 @@
         content:{
           id: 'interfaceTimePie',
           height: '30%',
-          width: '300px',
+          width: '85%',
           ref: 'interfaceTime'
         },
         option: {
@@ -127,7 +127,7 @@
         content:{
           id: 'loadPageTimePie',
           height: '30%',
-          width: '300px',
+          width: '85%',
           ref: 'loadPageTime'
         },
         option: {
@@ -156,7 +156,7 @@
         content: {
           id: 'browserPie',
           height:'30%',
-          width: '300px',
+          width: '85%',
           ref: 'browser'
         },
         option: {
@@ -177,7 +177,7 @@
         content:{
           id: 'interfaceErrorPie',
           height: '30%',
-          width: '300px',
+          width: '85%',
           ref: 'interfaceError'
         },
         option: {
@@ -268,17 +268,17 @@
   .container{
     height: 100%;
     display:flex; /*设为伸缩容器*/
-    flex-flow:row; /*伸缩项目单行排列*/
-    align-items: center; /* 上下居中 */
+    // flex-flow:row; /*伸缩项目单行排列*
+    // align-items: center; /* 上下居中 */
     .stable {
-      width:350px; /*固定宽度*/
-      height: 680px;
-      padding-top: 70px;
+      height: 82%;
+      width: 35%; /*固定宽度*/////////////////
+      padding-top: 5%;
       .arrange-v{
-        height:30%;
-        width: 300px;
-        margin: 15px auto;
-        padding-top: 10px;
+        height:28%;//右下角容器高度（单独）
+        width:85%;
+        margin: 10% auto;//容器间距
+        padding-top: 2%;
         color: #0eb3cf;
         background:rgba(40, 50, 50, 0.66);
         box-shadow: 1px 1px 10px #d2f6fc;
@@ -287,23 +287,23 @@
         list-style: none;
         text-align: left;
         li{
-          margin: 10px 0px 10px -18px;
+          margin: 5% 0px 5% -5%;
           color: #feb477;
           font-size: 13px;
-          line-height: 23px;
+          line-height: 100%;
           .resultSpan{
             color: #55decd;
-            margin-left: 5px;
-            font-size: 15px; 
+            margin-left: 2%;
+            font-size: 120%; 
           }
         }
         .errorTip{
           position: absolute;
-          left: 149px;
-          top: 30px;
-          padding: 5px 10px;
+          left: 55%;
+          top:250%;
+          padding: 2% 3%;
           background-color: #5b7b8a;
-          border-radius: 5px;
+          border-radius: 2%;
           box-shadow: rgb(255, 255, 255) 0px 0px 7px;
         }
       }
@@ -311,39 +311,37 @@
     .change {
       flex:1; /*这里设置为占比1，填充满剩余空间*/
       height: 100%;
-      min-width: 600px;
+      min-width: 40%;
       position: relative;
       .mapDetail{
-        width: 200px;
-        min-height: 80px;
+        width: 50%;//usererror
+        min-height: 7%;
         position: absolute;
-        top: 100px;
+        top: 17%;
         background-color: #999;
-        left: 30px;
+        left: 10%;
         -webkit-box-shadow: 0 0 6px #fff;
         box-shadow: 0 0 6px #fff;
         color: #fff;
-        padding: 10px 0 0 10px;
+        padding: 1% 0 0 1%;
         font-size: 14px;
       }
       .systemTitle{
         position: absolute;
-        width: 1490px;
-        height: 90px;
-        top: 3px;
-        background-size: 100% 100%;
-        right: 0;
-        left: -400px;
+        width:250%;
+        height: 13.5%;
+        top: 0.2%;
+        left: -75%;
         margin: auto;
         
       }
       .jumpToDetail{
         position: absolute;
-        width: 24px;
-        height: 24px;
-        background-size: 100%;
+        width: 20px;
+        height: 20px;
+        background-size: 130%;
         top: 0.8%;
-        left: 1040px;
+        left: 170%;
         // right: 52px;
         cursor: pointer;
       }

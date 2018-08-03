@@ -125,8 +125,8 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height: content.height || '300px',
-        width: content.width || '300px'
+        height: content.height || '100%',
+        width: content.width || '100%'
     }
     for(var o in style){
         vueObj[content.ref].$el.style[o] = style[o];
