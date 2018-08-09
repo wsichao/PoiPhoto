@@ -44,8 +44,8 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height: '28%' ,
-        width: content.width || '100%',
+        height:  '35%',
+        width:  '75%',
         position: 'relative'
     }
     for(var o in style){
@@ -59,16 +59,18 @@ function initContent(content){
  */
 function initChart(option){
     if(option.data.length>0){
+        
         vueObj[option.ref].noData = false;
         var extendOption = {
-            height:'50%',
-            width:'70%',
             backgroundColor: 'rgba(51,51,51,0)',
+            // height:'70%',
+            // width:'60%',
             title: { 
                 text: '' || option.title,
                 x: 'center',
+                y: '-2%',
                 textStyle: {
-                    color: '#02fdf6',
+                    color: '#FFF',
                     fontWeight: 'normal',
                     fontSize: 16
                 }
@@ -113,12 +115,12 @@ function initChart(option){
             },
             label:{
                 normal: {
-                    show: true,
+                    show: false,
                 }
             },
             grid: {
-                x: '20%', //相当于距离左边效果:padding-left
-                y: '25%', //相当于距离上边效果:padding-top
+                x:'20%',//相当于距离左边效果:padding-left
+                y:'15%',//相当于距离上边效果:padding-top
             },
             series: [{
                 type: 'bar',

@@ -44,8 +44,8 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height: content.height || '100%',
-        width: content.width || '100%'
+        height: content.height || '50%',
+        width: content.width || '100%',
     }
     for(var o in style){
         vueObj[content.ref].$el.style[o] = style[o];
@@ -66,8 +66,9 @@ function initChart(option){
             title: {
                 text: '' || option.title,
                 x: 'center',
+                y:'-1%',
                 textStyle: {
-                    color: '#02fdf6',
+                    color: '#FFF',
                     fontWeight: 'normal',
                     fontSize: 16
                 }
@@ -79,31 +80,33 @@ function initChart(option){
         yAxis: {
             show: false
         },
+        
         series:[{
-            radius:option.radius || ['40%', '60%'],
-            center: ['50%', '60%'],
+            radius:['40%', '60%'],
+            center: ['50%', '52%'],
             name: '',
             type:'pie',
             sort: 'ascending', 
-            width: '40%', 
+            // width: '10%', 
+            // height: '20%',
             color: function(params) {
                 // build a color map as your need.
                 var colorList = [
                     {image: piePatternImg1},'#fe4200','#f79c5f','#E87C25','#27727B',
                     '#f9b238','#63cab1','#ff8e09','#f79c5f','#E87C25','#27727B','#fbe26b','#fc28e1',
-                    '#ffd776','#C6E579','#f9b238',{image: piePatternImg1},'#e0fb00','#ff8e09','#fe6702',
+                    '#ffd776','#C6E579','#f9b238','#e0fb00',{image: piePatternImg1},'#ff8e09','#fe6702',
                     ];
                 return colorList[params.dataIndex]
                 },
             itemStyle: {
-                // normal: {
-                //     emphasis:{
-                //         shadowOffsetX: 0,
-                //         shadowOffsetY: 0,
-                //         shadowBlur: 15,
-                //         shadowColor: '#fed7b7'
-                //              }
-                //         },
+                normal: {
+                    emphasis:{
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        shadowBlur: 15,
+                        shadowColor: '#fed7b7'
+                             }
+                        },
                         borderWidth: 1,
                         borderColor: '#35f0fc'
                        },
@@ -117,11 +120,11 @@ function initChart(option){
             //         borderWidth: 1.5,
             //         borderColor: '#35f0fc'
             //     }
-                
             // },
             data: option.data || [],
             },
         ]
+        
     };
 
         chartObj = echarts.init(document.getElementById(vueObj[option.ref].$el.id), 'dark');
@@ -138,7 +141,10 @@ function initChart(option){
 function setOption(option){
     if(option.data.length > 0){
         var extendOption = {
-        title: { text: '' || option.title},
+        title: { 
+            text: '' || option.title,
+            x: '30%',
+            },
         tooltip: {},
         xAxis: {
             show: false

@@ -115,7 +115,7 @@ function createUUID(){
             }
         }
         tr:hover{
-            color: #333;
+            color: #FFF;
             background-color: #aaa;
         }
     }

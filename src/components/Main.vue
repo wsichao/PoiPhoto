@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="stable" >
-      <pie-chart class="arrange-v" ref="userOnline"></pie-chart>
-      <bar-chart class="arrange-v" ref="interfaceTime"></bar-chart>
-      <bar-chart class="arrange-v" ref="loadPageTime"></bar-chart>
+      <pie-chart class="arrange-v" ref="userOnline"  style="background: url(static/box.png);background-size: 100% 100%;"></pie-chart>
+      <bar-chart class="arrange-v" ref="interfaceTime" style="background: url(static/box.png);background-size: 100% 100%;" ></bar-chart>
+      <bar-chart class="arrange-v" ref="loadPageTime"  style="background: url(static/box.png);background-size: 100% 100%;"></bar-chart>
     </div>
     <div class="change">
       <map-chart ref="map"></map-chart>
@@ -11,13 +11,19 @@
         {{mapDetail}}
         <div class="close" v-on:click="showMapDetail=false"></div>
       </div>
+      <!-- <div class="bgbox" style="background: url(static/box.png);background-size: 100% 100%;"></div>
+      <div class="bgbox1" style="background: url(static/box.png);background-size: 100% 100%;"></div>
+      <div class="bgbox2" style="background: url(static/box.png);background-size: 100% 100%;"></div>
+      <div class="bgbox3" style="background: url(static/box.png);background-size: 100% 100%;"></div>
+      <div class="bgbox4" style="background: url(static/box.png);background-size: 100% 100%;"></div>
+      <div class="bgbox5" style="background: url(static/box.png);background-size: 100% 100%;"></div> -->
       <div class="systemTitle" style="background: url(static/title.png);background-size: 100% 100%;"></div>
       <div class="jumpToDetail" style="background-image: url(static/jump.png);" title="跳转至详情页面" v-on:click="jumpToDetail"></div>
     </div>
     <div class="stable">
-      <pie-chart class="arrange-v" ref="browser"></pie-chart>
-      <bar-chart class="arrange-v" ref="interfaceError"></bar-chart>
-      <div class="arrange-v" >
+      <pie-chart class="arrange-v" ref="browser"style="background: url(static/box.png);background-size: 100% 100%;"></pie-chart>
+      <bar-chart class="arrange-v" ref="interfaceError"style="background: url(static/box.png);background-size: 100% 100%;"></bar-chart>
+      <div class="arrange-v" style="background: url(static/box.png);background-size: 100% 100%;">
         <ul>
           <li><span>近一月接口错误总数：<span class="resultSpan">{{errorTotal}}</span></span></li>
           <li><span>近一月接口平均耗时： <span class="resultSpan">{{averageTime}}</span></span></li>
@@ -81,8 +87,8 @@
       self.$refs.userOnline.init({
         content: {
           id: 'userOnlinePie',
-          height:'30%',
-          width: '85%',
+          height:'40%',
+          width: '75%',
           ref: 'userOnline'
         },
         option: {
@@ -99,8 +105,8 @@
       var param = {
         content:{
           id: 'interfaceTimePie',
-          height: '30%',
-          width: '85%',
+         height:'40%',
+          width: '75%',
           ref: 'interfaceTime'
         },
         option: {
@@ -126,8 +132,8 @@
       var param = {
         content:{
           id: 'loadPageTimePie',
-          height: '30%',
-          width: '85%',
+          height:'40%',
+          width: '75%',
           ref: 'loadPageTime'
         },
         option: {
@@ -155,8 +161,8 @@
       self.$refs.browser.init({
         content: {
           id: 'browserPie',
-          height:'30%',
-          width: '85%',
+          height:'40%',
+          width: '75%',
           ref: 'browser'
         },
         option: {
@@ -176,8 +182,8 @@
       var param = {
         content:{
           id: 'interfaceErrorPie',
-          height: '30%',
-          width: '85%',
+          height:'40%',
+          width: '75%',
           ref: 'interfaceError'
         },
         option: {
@@ -267,29 +273,28 @@
   }
   .container{
     height: 100%;
+    width: 100%;
     display:flex; /*设为伸缩容器*/
-    // flex-flow:row; /*伸缩项目单行排列*
+    // flex-flow:row; /*伸缩项目单行排列*/
     // align-items: center; /* 上下居中 */
     .stable {
-      height: 82%;
-      width: 35%; /*固定宽度*/////////////////
+      height:72%;
+      width: 38%; /*固定宽度*/////////////////
+      text-align: center;
       padding-top: 5%;
       .arrange-v{
-        height:28%;//右下角容器高度（单独）
-        width:85%;
-        margin: 10% auto;//容器间距
+        height:35%;//右下角容器高度（单独）
+        width: 75%;
+        margin: 2% auto;//容器间距
         padding-top: 2%;
-        color: #0eb3cf;
-        background:rgba(40, 50, 50, 0.66);
-        box-shadow: 1px 1px 10px #d2f6fc;
       }
       ul {
         list-style: none;
         text-align: left;
         li{
-          margin: 5% 0px 5% -5%;
+          margin: 10% 0% 0% 5%;
           color: #feb477;
-          font-size: 13px;
+          font-size: 15px;
           line-height: 100%;
           .resultSpan{
             color: #55decd;
@@ -304,7 +309,7 @@
           padding: 2% 3%;
           background-color: #5b7b8a;
           border-radius: 2%;
-          box-shadow: rgb(255, 255, 255) 0px 0px 7px;
+          // box-shadow: rgb(255, 255, 255) 0px 0px 7px;
         }
       }
     }
@@ -333,8 +338,50 @@
         top: 0.2%;
         left: -75%;
         margin: auto;
-        
       }
+      
+      
+      // .bgbox1{
+      //   position: absolute;
+      //   width:60%;
+      //   height: 30%;
+      //   top: 40%;
+      //   left: -70%;
+      //   z-index: 0;
+      // }
+      // .bgbox2{
+      //   position: absolute;
+      //   width:60%;
+      //   height: 30%;
+      //   top: 70%;
+      //   left: -70%;
+      //   z-index: 0;
+      // }
+      // .bgbox3{
+      //   position: absolute;
+      //   width:60%;
+      //   height: 30%;
+      //   top: 10%;
+      //   right: -66%;
+      //   z-index: 0;
+      // }
+      // .bgbox4{
+      //   position: absolute;
+      //   width:60%;
+      //   height: 30%;
+      //   top: 40%;
+      //   right: -66%;
+      //   z-index: 0;
+      // }
+      // .bgbox5{
+      //   position: absolute;
+      //   width:60%;
+      //   height: 30%;
+      //   top: 70%;
+      //   right: -66%;
+      //   z-index: 0;
+      // }
+
       .jumpToDetail{
         position: absolute;
         width: 20px;
@@ -346,7 +393,6 @@
         cursor: pointer;
       }
     }
-
     .close {
         position: absolute;
         right: -14px;
