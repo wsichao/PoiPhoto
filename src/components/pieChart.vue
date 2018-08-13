@@ -44,8 +44,9 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height: content.height || '50%',
-        width: content.width || '100%',
+        height:  '35%',
+        width:  '75%',
+        position: 'relative'
     }
     for(var o in style){
         vueObj[content.ref].$el.style[o] = style[o];
@@ -82,7 +83,7 @@ function initChart(option){
         },
         
         series:[{
-            radius:['40%', '60%'],
+            radius:['20%', '40%'],
             center: ['50%', '52%'],
             name: '',
             type:'pie',
@@ -92,8 +93,8 @@ function initChart(option){
             color: function(params) {
                 // build a color map as your need.
                 var colorList = [
-                    {image: piePatternImg1},'#fe4200','#f79c5f','#E87C25','#27727B',
-                    '#f9b238','#63cab1','#ff8e09','#f79c5f','#E87C25','#27727B','#fbe26b','#fc28e1',
+                    {image: piePatternImg1},'#00fbfe','#e02bfb','#363ffa','#27727B',
+                    '#38f9c5','#63cab1','#ff8e09','#66f75f','#21fe03','#27727B','#fbe26b','#fc28e1',
                     '#ffd776','#C6E579','#f9b238','#e0fb00',{image: piePatternImg1},'#ff8e09','#fe6702',
                     ];
                 return colorList[params.dataIndex]

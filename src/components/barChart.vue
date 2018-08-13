@@ -68,7 +68,7 @@ function initChart(option){
             title: { 
                 text: '' || option.title,
                 x: 'center',
-                y: '-2%',
+                // y: '-2%',
                 textStyle: {
                     color: '#FFF',
                     fontWeight: 'normal',

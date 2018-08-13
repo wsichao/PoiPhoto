@@ -281,12 +281,12 @@
       height:72%;
       width: 38%; /*固定宽度*/////////////////
       text-align: center;
-      padding-top: 5%;
+      padding-top: 7%;
       .arrange-v{
         height:35%;//右下角容器高度（单独）
         width: 75%;
         margin: 2% auto;//容器间距
-        padding-top: 2%;
+        padding-top: 1%;
       }
       ul {
         list-style: none;
