@@ -28,8 +28,6 @@ function init(param){
     option.ref = param.content.ref;
     initMap(option);
 }
-
-
 function initMap(option){
     var mapOption = {
 	title : {
@@ -43,72 +41,132 @@ function initMap(option){
         x: 'center',
         y: '30px'
 	},
-	tooltip: {
-		show : false
-	},
+    // legend: {//图例
+    //     show: true,
+    //     data: ["总数", "已解决", "未解决"],
+    //     icon: "circle",   //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
+    //     itemWidth: 10,  // 设置宽度
+    //     itemHeight: 10, // 设置高度
+    //     itemGap: 40 // 设置间距
+    // },
+    tooltip: {//悬浮信息框
+            borderRadius:5,//边框圆角
+            backgroundColor:'rgba(30,144,255,0.3)',//背景颜色
+            // formatter: function (params) {//信息框内容
+            //     var res='<p>地点  :'+params.name+'</p>' 
+            //     // var res1='<p>人数：'+[]+'</p>' 
+            //     return res
+            //     },
+	            },
+    legend: {
+        // show: true,
+        top: '90%',
+        itemWidth: 30,
+        itemHeight: 30,
+        borderColor:'#df3434', 
+        selectedMode:"false",
+        data: [
+            {
+            name:'报错人数',
+            color: '#fff',
+            icon:'image://./static/legend.png'
+            },
+            
+        ],
+        textStyle:{
+            color: ' rgba(10, 175, 230)',
+            fontSize: 18
+        }, 
+    },
 	series : [
 	   {
-           type: 'map',
+            name: '报错人数',
+            type: 'map',
             mapType: 'china',
             hoverable: false,
             roam:true,
-		//    coordinateSystem: 'geo',
-		   //将业务点映射到地图,先默认为空
-		   data: [],
-		   symbolSize: 7,
-		   symbolRotate: 35,
-		   label: {
+		    data: [],
+		    label: {
 			   normal: {
 				   formatter: '{b}',
 				   position: 'right',
                    show: true,
-                   color: '#ccc',
+                   color: '#ccc',//地图城市文字颜色
 			   }
-		   },
+           },
 		   itemStyle: {
 			   normal: {
-                    color: '#fb4d00',
-                    areaColor:'rgba(30, 50, 60, 0.6)',
-                    borderColor: '#0eb3cf',
-                    borderWidth:1,
+                    // color: #,//黄色
+                    areaColor:'rgba(0, 0, 0, 0.3)',//中国地图色调or透明度
+                    borderColor: '#0eb3cf',//中国地图边框线
+                    borderWidth:1,//地图边框
 			   },
 			   emphasis:{
-                    areaColor: '#0eb3cf',
-                    shadowOffsetX: 0,
+                    position : 'right',
+                    show : true,
+                    areaColor: '#0eb3cf',//地图城市点击之后颜色
+                    shadowOffsetX: 0,//点击发光色位置
                     shadowOffsetY: 0,
-                    shadowBlur: 15,
-                    borderWidth: 0,
+                    shadowBlur: 10,//发光边框大小
+                    borderWidth: 0,//发光边框
                     shadowColor: '#fed7b7'
 			    }
-           },
+           }, 
            markPoint : {
-                symbol:'emptyCircle',
+                type:'effectScatter',
+                coordinateSystem:'geo',
+                symbol: 'circle',//地图点的样式
                 symbolSize : function (v){
-                    return v + 15
-                },
+                    if(v<=2){
+                    return v=5
+                    }else if(v<=5){
+                        return v=8
+                    }else if(v<=10){
+                        return v=11
+                    }else if(v<=30){
+                        return v=14
+                    }else if(v<=50){
+                        return v=17
+                    }else if(v<=100){
+                        return v=20
+                    }else if(v<=500){
+                        return v=22
+                    }
+                },// 根据交易量值 来控制气泡半径 
+                // effectType:"ripple",        //特效类型，目前只支持涟漪特效'ripple'。
+                // showEffectOn: 'render',
+                // rippleEffect:{              //涟漪特效相关配置。
+                //     period:4,               //动画的时间。
+                //     scale:2.5,              //动画中波纹的最大缩放比例。
+                //     brushType:'fill',      //波纹的绘制方式，可选 'stroke' 和 'fill'。
+                // },
+                // showEffectOn:"render",
                 effect : {
-                    show: false,
+                    show: true,
                     shadowBlur : 0
                 },
                 itemStyle: {
                     normal: {
-                        // borderColor: '#0f0',
-                        // borderWidth: 1,
+                        color:'#03f8f6',
+                        borderColor: '#a3f10b',
+                        borderWidth:  0.4,
+                        shadowColor: 'rgba(0, 0, 0, 0.8)',
                         label: {
-                            show: true,
-                            // color: '#000'
-                        }
-                    }
+                            show: false,//poi原型文字不显示
+                        },
+                    },
+                    emphasis: {
+                        show:true,//是否在高亮状态下显示标签。
+                    },
                 },
                 data : []
-            }
-		},            
-	]
+            },
+        },
+    ],
 };
 //然后就是将option添加到地图展示:
 chartObj = echarts.init(document.getElementById(vueObj[option.ref].$el.id));
 chartObj.setOption(mapOption);
-
 chartObj.on('click', function(param){
     for(var o in vueObj){
         if(vueObj[o].mapClick){
@@ -125,8 +183,8 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height: content.height || '100%',
-        width: content.width || '100%'
+        height: '100%',
+        width: '100%'
     }
     for(var o in style){
         vueObj[content.ref].$el.style[o] = style[o];

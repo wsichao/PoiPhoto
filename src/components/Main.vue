@@ -1,9 +1,28 @@
 <template>
   <div class="container">
     <div class="stable" >
-      <pie-chart class="arrange-v" ref="userOnline"  style="background: url(static/box.png);background-size: 100% 100%;"></pie-chart>
-      <bar-chart class="arrange-v" ref="interfaceTime" style="background: url(static/box.png);background-size: 100% 100%;" ></bar-chart>
-      <bar-chart class="arrange-v" ref="loadPageTime"  style="background: url(static/box.png);background-size: 100% 100%;"></bar-chart>
+      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+          用户在线人数
+      </div>
+      <pie-chart class="arrange-v" ref="userOnline"  style="background-size: 100% 100%;">
+      </pie-chart>
+      <!-- background: url(static/box.png); -->
+      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+          接口请求耗时TOP10省份
+      </div>
+      <bar-chart class="arrange-v" ref="interfaceTime" style="background-size: 100% 100%;" >
+      </bar-chart>
+      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+          页面渲染耗时TOP10省份
+      </div>
+      <bar-chart class="arrange-v" ref="loadPageTime"  style="background-size: 100% 100%;">
+      </bar-chart>
+      <div class="timeimg"><img src="static/radar.png" style="width:20%;height:90%">
+        <div class="timefont">
+          <div class="datetime" >Date:{{date}}</div>
+          <div class="datetime" >Time:{{time}}</div>
+        </div>
+      </div>
     </div>
     <div class="change">
       <map-chart ref="map"></map-chart>
@@ -11,27 +30,38 @@
         {{mapDetail}}
         <div class="close" v-on:click="showMapDetail=false"></div>
       </div>
-      <!-- <div class="bgbox" style="background: url(static/box.png);background-size: 100% 100%;"></div>
-      <div class="bgbox1" style="background: url(static/box.png);background-size: 100% 100%;"></div>
-      <div class="bgbox2" style="background: url(static/box.png);background-size: 100% 100%;"></div>
-      <div class="bgbox3" style="background: url(static/box.png);background-size: 100% 100%;"></div>
-      <div class="bgbox4" style="background: url(static/box.png);background-size: 100% 100%;"></div>
-      <div class="bgbox5" style="background: url(static/box.png);background-size: 100% 100%;"></div> -->
       <div class="systemTitle" style="background: url(static/title.png);background-size: 100% 100%;"></div>
-      <div class="jumpToDetail" style="background-image: url(static/jump.png);" title="跳转至详情页面" v-on:click="jumpToDetail"></div>
+      <div class="jumpToDetail" style="background-image: url(static/jump1.png);" title="跳转至详情页面" v-on:click="jumpToDetail"></div>
     </div>
     <div class="stable">
-      <pie-chart class="arrange-v" ref="browser"style="background: url(static/box.png);background-size: 100% 100%;"></pie-chart>
-      <bar-chart class="arrange-v" ref="interfaceError"style="background: url(static/box.png);background-size: 100% 100%;"></bar-chart>
-      <div class="arrange-v" style="background: url(static/box.png);background-size: 100% 100%;">
+        <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+        Chrome各版本使用占比
+        </div>
+      <pie-chart class="arrange-v" ref="browser"style="background-size: 100% 100%;">
+      </pie-chart>
+      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+        接口错误统计TOP10省份
+        </div>
+      <bar-chart class="arrange-v" ref="interfaceError"style="background-size: 100% 100%;"></bar-chart>
+        <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+          近一月信息
+        </div>
+      <div class="arrange-v" style="background-size: 100% 100%;">
         <ul>
-          <li><span>近一月接口错误总数：<span class="resultSpan">{{errorTotal}}</span></span></li>
-          <li><span>近一月接口平均耗时： <span class="resultSpan">{{averageTime}}</span></span></li>
+          <li><span>近一月接口错误总数：<span class="resultSpan">{{errorTotal}}</span></span><br></li>
+          <li><span>近一月接口平均耗时：<span class="resultSpan">{{averageTime}}</span></span><br></li>
           <li style="position:relative">
             <span>近一月异常人员数量：<span class="resultSpan" v-on:mouseover="showUserId=true" v-on:mouseleave="showUserId=false" style="text-decoration: underline;cursor: pointer;">{{errorUser}}</span></span>
             <div v-show="showUserId" class="errorTip"><span>错误用户ID：{{errorUserID}}</span></div>
           </li>
         </ul>
+      </div>
+      <div class="timeimg-right">
+        <div class="timefont-right">
+          <div class="datetime" style="font-size:22px;padding-top:30px"> W e b M o n i t o r</div>
+        </div>
+        <img src="static/radar-right.png" style="width:20%;height:90%">
+      </div>
       </div>
     </div>
   </div>
@@ -45,10 +75,23 @@
   import { appUtil } from '../config';
   import { Utils } from '../common/js/utils.js';
   var self;
+  function lpad(str, len, char) {
+  let s = str.toString();
+  let c = char || ' ';
+  c = c.toString();
+  while (s.length < len) {
+    s = c + s;
+  }
+  return s;
+}
   export default {
     name: 'Main',
+    props: ['flag'],
     data () {
       return {
+        date: '',
+        time: '',
+        interval: null,
         showUserId:false,
         errorTotal:0,
         averageTime:'无数据',
@@ -59,10 +102,9 @@
       }
     },
     mounted:function(){
-      
+      this.refreshDateTime();
       this.$nextTick(()=>{
         self = this;
-
         initUserOnline();
         getLoadPageTime();
         getInterfaceTime();
@@ -78,7 +120,22 @@
       mapChart
     },
     methods: {
-      jumpToDetail: jumpToDetail
+      jumpToDetail: jumpToDetail,
+      getDateTime() {
+      const d = new Date();
+      this.date = `${d.getFullYear()}-${lpad((d.getMonth() + 1), 2, '0')}-${lpad(d.getDate(), 2, '0')}`;
+      this.time = `${lpad(d.getHours(), 2, '0')}:${lpad(d.getMinutes(), 2, '0')}:${lpad(d.getSeconds(), 2, '0')}`;
+    },
+    refreshDateTime() {
+      if (this.interval) {
+        clearInterval(this.interval);
+        this.interval = null;
+      }
+
+      this.interval = setInterval(() => {
+        this.getDateTime();
+      }, 1000);
+    },
     }
   }
 
@@ -92,7 +149,7 @@
           ref: 'userOnline'
         },
         option: {
-          title: '用户在线、离线数统计',
+          // title: '用户在线、离线数统计',
           data: res.data
         }
       });
@@ -110,7 +167,7 @@
           ref: 'interfaceTime'
         },
         option: {
-          title: '接口请求耗时TOP10省份',
+          // title: '接口请求耗时TOP10省份',
           xAxis: [],
           data: []
         }
@@ -137,7 +194,7 @@
           ref: 'loadPageTime'
         },
         option: {
-          title: '页面渲染耗时TOP10省份',
+          // title: '页面渲染耗时TOP10省份',
           xAxis: [],
           data: []
         }
@@ -148,7 +205,6 @@
           param.option.data.push(ele.value);
         })
       }
-
       self.$refs.loadPageTime.init(param);
     })
   }
@@ -166,7 +222,7 @@
           ref: 'browser'
         },
         option: {
-          title: 'Chrome各版本使用占比',
+          // title: 'Chrome各版本使用占比',
           data: res.data,
           radius: ['0', '60%'],
           center: ['50%', '60%'],
@@ -187,7 +243,7 @@
           ref: 'interfaceError'
         },
         option: {
-          title: '接口错误统计TOP10省份',
+          // title: '接口错误统计TOP10省份',
           xAxis: [],
           data: []
         }
@@ -270,46 +326,85 @@
   .container {
     height: 100%;
     width: 100%;
-  }
-  .container{
-    height: 100%;
-    width: 100%;
     display:flex; /*设为伸缩容器*/
+    // align-content: flex-start;
     // flex-flow:row; /*伸缩项目单行排列*/
     // align-items: center; /* 上下居中 */
     .stable {
-      height:72%;
+      height:48%;
       width: 38%; /*固定宽度*/////////////////
       text-align: center;
-      padding-top: 7%;
+      padding-top: 5%;
+      padding-left: 4%;
+      .timeimg {
+        height: 20%;
+        width: 100%;
+        display: flex;
+      }
+      .timeimg-right {
+        height: 18%;
+        width: 100%;
+        display: flex;
+        padding-top: 13%;
+        // align-items: flex-start;
+        justify-content: center;
+      }
+      .timefont {
+        display: flex;
+        justify-content: center;
+        flex-flow:column; /*伸缩项目单行排列*/
+        align-items: center
+      }
+      .timefont-right {
+        display: flex;
+        justify-content: flex-start;
+        flex-flow:column; /*伸缩项目单行排列*/
+        align-items: center
+      }
+        .datetime {
+          font-size: 20px;
+          color: #47a2ff;
+          text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
+        }
       .arrange-v{
-        height:35%;//右下角容器高度（单独）
-        width: 75%;
-        margin: 2% auto;//容器间距
-        padding-top: 1%;
+        height: 20%;
+        width: 70%;
+        display: flex;
+        justify-content: center;
+      }
+      .right-a{
+        height: 25%;
+        width: 85%;
+        font-size: 20px;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
       }
       ul {
         list-style: none;
         text-align: left;
+        padding-left: 25%;
         li{
-          margin: 10% 0% 0% 5%;
-          color: #feb477;
-          font-size: 15px;
-          line-height: 100%;
+          height: 50%;
+          width: 100%;
+          color: #fff;
+          font-size: 16px;
+          line-height: 250%;
           .resultSpan{
             color: #55decd;
-            margin-left: 2%;
-            font-size: 120%; 
+            font-size: 18px; 
           }
-        }
+        }s
         .errorTip{
           position: absolute;
           left: 55%;
-          top:250%;
+          top: 100%;
           padding: 2% 3%;
-          background-color: #5b7b8a;
-          border-radius: 2%;
-          // box-shadow: rgb(255, 255, 255) 0px 0px 7px;
+          border-radius: 10px;
+          background-color: rgba(30,144,255,0.2);
+          // box-shadow: rgb(255, 255, 255) 0px 0px 7px;//tip边框外发光
         }
       }
     }
@@ -334,63 +429,31 @@
       .systemTitle{
         position: absolute;
         width:250%;
-        height: 13.5%;
+        height: 18.5%;
         top: 0.2%;
         left: -75%;
         margin: auto;
       }
-      
-      
-      // .bgbox1{
-      //   position: absolute;
-      //   width:60%;
-      //   height: 30%;
-      //   top: 40%;
-      //   left: -70%;
-      //   z-index: 0;
-      // }
-      // .bgbox2{
-      //   position: absolute;
-      //   width:60%;
-      //   height: 30%;
-      //   top: 70%;
-      //   left: -70%;
-      //   z-index: 0;
-      // }
-      // .bgbox3{
-      //   position: absolute;
-      //   width:60%;
-      //   height: 30%;
-      //   top: 10%;
-      //   right: -66%;
-      //   z-index: 0;
-      // }
-      // .bgbox4{
-      //   position: absolute;
-      //   width:60%;
-      //   height: 30%;
-      //   top: 40%;
-      //   right: -66%;
-      //   z-index: 0;
-      // }
-      // .bgbox5{
-      //   position: absolute;
-      //   width:60%;
-      //   height: 30%;
-      //   top: 70%;
-      //   right: -66%;
-      //   z-index: 0;
-      // }
-
       .jumpToDetail{
         position: absolute;
-        width: 20px;
-        height: 20px;
-        background-size: 130%;
-        top: 0.8%;
-        left: 170%;
+        width: 14%;
+        height: 12%;
+        top: 20%;
+        left: 100%;
+        -webkit-transition: -webkit-transform 0.9s ease-out;
+        -moz-transition: -moz-transform 0.9s ease-out;
+        -o-transition: -o-transform 0.9s ease-out;
+        -ms-transition: -ms-transform 0.9s ease-out;
         // right: 52px;
         cursor: pointer;
+      }
+      .jumpToDetail:hover {//旋转效果
+        // transform: scale(0.5);//缩放比例
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        -o-transform: rotateZ(360deg);
+        -ms-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
       }
     }
     .close {

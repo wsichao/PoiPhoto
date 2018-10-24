@@ -44,7 +44,7 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height:  '35%',
+        height:  '33%',
         width:  '75%',
         position: 'relative'
     }
@@ -63,18 +63,6 @@ function initChart(option){
         vueObj[option.ref].noData = false;
         var extendOption = {
             backgroundColor: 'rgba(51,51,51,0)',
-            // height:'70%',
-            // width:'60%',
-            title: { 
-                text: '' || option.title,
-                x: 'center',
-                // y: '-2%',
-                textStyle: {
-                    color: '#FFF',
-                    fontWeight: 'normal',
-                    fontSize: 16
-                }
-            },
             tooltip: {},
             xAxis: {
                 type: 'category',
@@ -83,7 +71,7 @@ function initChart(option){
                 axisLine: {
                     lineStyle: {
                         type: 'solid',
-                        color: '#e98f48',//左边线的颜色
+                        color: '#5f89bc',//左边线的颜色
                         width:'2'//坐标线的宽度
                     }
                 }
@@ -91,15 +79,12 @@ function initChart(option){
             yAxis: {
                 type: 'value',
                 minInterval:1,
-                splitLine:{
-                    lineStyle: {
-                        color: '#e98f48'
-                            }
-                        },//网格线颜色
+                splitLine:{show:false
+                        },//内部网格线颜色
                 axisLine: {
                     lineStyle: {
                         type: 'solid',
-                        color: '#e98f48',//左边线的颜色
+                        color: '#5f89bc',//左边线的颜色
                         width:'2'//坐标线的宽度
                     }
                 },
@@ -119,8 +104,8 @@ function initChart(option){
                 }
             },
             grid: {
-                x:'20%',//相当于距离左边效果:padding-left
-                y:'15%',//相当于距离上边效果:padding-top
+                x:'30%',//相当于距离左边效果:padding-left
+                y:'3%',//相当于距离上边效果:padding-top
             },
             series: [{
                 type: 'bar',
@@ -128,10 +113,11 @@ function initChart(option){
                 barWidth: 10,
                 itemStyle: {
                     normal: {
+                    barBorderRadius: [10, 10, 0, 0],//柱状图圆角
                     color: new echarts.graphic.LinearGradient(
                       0, 0, 0, 1,
                     [
-                        {offset: 0, color: '#fb760a'},   
+                        {offset: 0, color: '#323bfd'},   
                         {offset: 1, color: '#02fdf6'}
                     ]
                  )

@@ -12,7 +12,7 @@
   "dependencies": {
     "axios": "^0.17.0",
     "echarts": "^4.1.0",
-    "element-ui": "^2.0.2",
+    "element-ui": "^2.4.8",
     "es2015": "0.0.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
