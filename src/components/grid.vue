@@ -11,7 +11,7 @@
 
 <script>
 
-import Element from 'element-ui';
+import Element,{ Loading } from 'element-ui';
 let gridObj, vueObj = {};
 export default {
     name: 'grid',
@@ -19,8 +19,9 @@ export default {
         return {
             cols:[],
             pageNo: 1,
-            pageSize: 20,
-            tableData: []
+            pageSize: 16,//每页最多16行
+            tableData: [],
+            loading: true
         }
     },
     props: [],
@@ -55,7 +56,7 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height: content.height || '300px',
+        height: content.height || '100%',
         width: content.width || '100%'
     }
     for(var o in style){
@@ -84,45 +85,46 @@ function createUUID(){
         padding: 5px 0;
     }
     .el-table {
+        background-color: rgba(0,0,0,0.0);//表格背景透明
         .el-table__empty-block{
-            background-color: #666;
+            background-color:rgba(0,0,0,0.0);//起始背景框透明
             span{
-                color:white;
+                font-size: 20px;
+                color:#ccc;//起始暂无数据颜色
             }
         }
         th{
-            background-color: #666; 
-            color: #ccc;
-            border-bottom: 1px solid #999;
+            background-color: #0d3964;//导航栏背景色
+            color: #fff;//导航栏文字颜色
+            // border-bottom: 1px solid rgba(70,130,180,0.5);
             // border-right:1px solid white;
         }
         tr:nth-child(odd){
-            background-color: #333; 
-            color: #ccc;
+            background-color:rgba(0,94,186,0.5); //首行背景色
+            color: #ccc;//首行文字颜色
             cursor: pointer;
             td{
-                border-right:1px solid #999;
-                border-bottom: 1px solid #999;
+                // border-right:1px solid #999;
+                // border-bottom: 1px solid #999;
             }
         }
         tr:nth-child(even){
-            background-color: #666; 
-            color: #ccc;
+            background-color: rgba(	30,144,255,0.6); //次行背景色
+            color: #fff;//次行文字颜色
             cursor: pointer;
             td{
-                border-right:1px solid #999;
-                border-bottom: 1px solid #999;
+                // border-right:1px solid #999;
+                // border-bottom: 1px solid #999;
             }
         }
         tr:hover{
-            color: #333;
-            background-color: #aaa;
+            color: #000;//悬浮文字颜色
+            background-color: 	rgba(128,128,128,0.2);//悬浮框背景色
         }
     }
     .el-table__body{
+        width: 100px;
         max-height: 600px;
-        display: block;
-        overflow: auto;
     }
     .el-table .cell{
         box-sizing: border-box;
@@ -133,10 +135,10 @@ function createUUID(){
         overflow: hidden;
     }
     .el-pagination{
-        padding: 2px 0px;
+        padding: 0.1% 45%;
     }
     .el-pager li, .el-pagination .btn-next, .el-pagination .btn-prev, .el-pagination .btn-next, .el-pagination .btn-prev, .el-pagination button:disabled{
-        background:#ccc;
+        background:rgba(70,130,180,0.1);//底部导航背景色
     }
     
 </style>
