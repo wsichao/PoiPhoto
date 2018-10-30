@@ -44,8 +44,8 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height:  '33%',
-        width:  '75%',
+        height:  '38%',
+        width:  '80%',
         position: 'relative'
     }
     for(var o in style){
@@ -104,12 +104,12 @@ function initChart(option){
                 }
             },
             grid: {
-                x:'30%',//相当于距离左边效果:padding-left
-                y:'3%',//相当于距离上边效果:padding-top
+                left:'20%',//相当于距离左边效果:padding-left
+                top:'3%',//相当于距离上边效果:padding-top
+                bottom: '5%',//
             },
             series: [{
                 type: 'bar',
-                center: [10,60],
                 barWidth: 10,
                 itemStyle: {
                     normal: {

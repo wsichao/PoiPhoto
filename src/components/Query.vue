@@ -1,43 +1,99 @@
 <template>
-  <div style="background: url(static/querybackground.png);background-size: 100% 100%;  width:100%;height:100%">
+  <div style="background: #f6f4f5;width:100%;height:100%">
     <div class="container">
-      <div class="systemTitle" style="background: url(static/title.png);background-size: 100% 100%;"></div>
-      <div class="queryArea">
-        <span><el-input type="input" placeholder="请输入用户ID" v-model="userid" /></span>
-        <span>类型：<el-select v-model="type" v-on:change="changeType"><el-option value="1">异常</el-option><el-option value="2">请求</el-option></el-select></span>
-        <span>搜索时间：开始&nbsp;&nbsp; <el-input type="datetime-local" v-model="startTime" style="width:35%"/>&nbsp;&nbsp;~ 结束&nbsp;&nbsp;<el-input type="datetime-local" v-model="endTime" style="width:35%"/></span>
-        <!-- <span>搜索时间：&nbsp;&nbsp; <el-date-picker type="date" placeholder="开始时间" v-model="startTime"></el-date-picker>&nbsp;&nbsp;~&nbsp;&nbsp;<el-date-picker type="date" placeholder="结束时间" v-model="endTime"></el-date-picker></span> -->
-        <el-button type="primary" icon="el-icon-search"  v-on:click="query" @click="onSearch">查询</el-button>
+      <div class="left" style="background: url(static/leftbg.jpg);background-size: 100% 100%;z-index:999;">
+        <div class="left-title">
+          <img src="static/logo2.png" style="max-height:70%;max-width:70%;">
+        </div>
+        <div class="left-bot" >
+          <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="rgba(0,0,0,0)" text-color="#fff" active-text-color="#ffd04b">
+            <el-submenu index="1">
+              <template slot="title">
+                <i class="el-icon-menu" style="color:#02effe;width:40px"></i>
+                <span>列表信息类<span style="color:red">*</span></span>
+              </template>
+              <el-menu-item-group style="font-size:20px;color:#fff;padding-left:15%">
+                <el-select v-model="type" v-on:change="changeType"  style="width:80%" placeholder="请选择类型"><el-option label="异常" value="1">异常</el-option><el-option label="请求" value="2">请求</el-option></el-select>
+              </el-menu-item-group>
+            </el-submenu>
+            <el-submenu index="2">
+              <template slot="title">
+                <i class="el-icon-edit" style="color:#02effe;width:40px"></i>
+                <span>用户ID查找</span>
+              </template>
+              <el-menu-item-group style="padding-left:15%">
+                <el-input type="input" placeholder="请输入用户ID" v-model="userid" style="width:80%" />
+              </el-menu-item-group>
+            </el-submenu>
+            <el-submenu index="3">
+              <template slot="title">
+                <i class="el-icon-time" style="color:#02effe;width:40px"></i>
+                <span>设置查询时间段<span style="color:red">*</span></span>
+              </template>
+              <el-menu-item-group style="font-size:20px;color:#fff;padding-left:5%">
+                开始:&nbsp;<el-input type="datetime-local" v-model="startTime" style="width:70%"/><br><br>
+                结束:&nbsp;<el-input type="datetime-local" v-model="endTime" style="width:70%"/>
+              </el-menu-item-group>
+            </el-submenu>
+          </el-menu>
+          <div class="leftbutton">
+          <el-button type="primary" icon="el-icon-search"  v-on:click="query" @click="onSearch" style="background-color:#02effe;border:0px;font-size:18px;font-weight:bold;">查询</el-button>
+          </div>  
+        </div>  
       </div>
-      <div class="mainArea">
-        <div class="leftSpan" style="background: url(static/leftborder.png);background-size: 100% 100%;">
-          <div class="nodata" v-show="noData"></div>
-          <ul>
-            <div id="leftChartop" style="height:200px;padding-top:10%"></div>
-            <div class="li"><span>内存使用率 </span><span class="resultSpan">{{CPUUse}}</span></div>
-            <div id="leftChartbot" style="height:200px"></div>
-            <div class="li-down"><span>页面渲染耗时 </span><span class="resultSpan">{{loadPageTime}}</span></div>
-          </ul>
-        </div>
-        <div class="middleArea" style="background: url(static/middleborder.png);background-size: 100% 100%;">
-          <div class="tableSpan" id="tableEle">
-            <grid ref="Grid"></grid>
-          </div>
-          <div class="dragLine" v-on:drag="dragDetail" >
-            <div class="arrow" v-on:drag="dragDetail"></div>
-          </div>
-        </div>
-        <div class="rightSpan" style="background: url(static/rightborder.png);background-size: 100% 100%;">
-          <ul>
-            <div id="rightChartop" style="height:200px;padding-top:10%"></div>
-            <div class="li"><span>接口平均耗时 </span><span class="resultSpan">{{interfaceTime}}</span></div>
-            <div id="rightChartbot" style="height:200px"></div>
-            <div class="li-down"><span> 接口错误数 </span><span class="resultSpan">{{InterfaceError}}</span></div>
-          </ul>
-        </div>
+      <div class="toptitle" style="z-index:950;">
+          <img src="static/title-query.png" style="height:75%;width:10%;padding:0.5% 0 0 50%">
       </div>
-      <div class="tableDetail" id="detailEle" >
-        <textarea style="background: url(static/textarea.png);background-size: 100% 100%;color: white;font-size: 18px">{{errorDetail}}</textarea>
+      <div class="right">
+        <div class="rightitle" >
+          <span style="font-size:24px;color:#333;font-Weight: bold"><img src="static/statistical.png" style="width:2%;height:2%">&nbsp;统计信息[statistical information]</span>
+        </div>
+        <div class="radar">
+            <div class="cpu">
+              <div class="cpu-text">
+                <span style="font-size:20px;color:#fcfcfc">内存使用率 </span><span class="resultSpan">{{CPUUse}}</span><span style="font-size:16px;color:#fcfcfc">百分比(%)</span>
+              </div>
+              <div class="cpu-radar" id="leftChartop" style="height:230px"></div>
+            </div>
+            <div class="lTime">
+              <div class="lTime-text">
+                  <span style="font-size:20px;color:#fcfcfc">页面渲染耗时 </span><span class="resultSpan">{{loadPageTime}}</span><span style="font-size:16px;color:#fcfcfc">毫秒(ms)</span>
+              </div>
+              <div class="lTime-radar" id="leftChartbot" style="height:230px"></div>
+            </div>
+            <div class="iTime">
+              <div class="iTime-text">
+              <span style="font-size:20px;color:#fcfcfc">接口平均耗时 </span><span class="resultSpan">{{interfaceTime}}</span><span style="font-size:16px;color:#fcfcfc">毫秒(ms)</span>
+              </div>
+              <div class="iTime-radar" id="rightChartop" style="height:230px"></div>
+            </div>
+            <div class="iError">
+              <div class="iError-text">
+                <span style="font-size:20px;color:#fcfcfc">接口错误数 </span><span class="resultSpan">{{InterfaceError}}</span><span style="font-size:16px;color:#fcfcfc">个数(个)</span>
+              </div>
+                <div class="iError-text" id="rightChartbot" style="height:230px"></div>
+            </div>
+        </div>
+        <div class="rightitle" >
+          <span style="font-size:24px;color:#333;font-Weight: bold"><img src="static/list.png" style="width:2%;height:2%">&nbsp;列表信息[List information]</span>
+        </div>
+        <div class="rightbot">
+          <div class="leftarea" style="background: #fff;width:49%;height:100%;box-shadow: 6px 6px 4px rgba(204,204,204,0.8);">
+            <span style="font-size:24px;color:background-image: linear-gradient(0deg, #fff 0%,#000 100%);;font-Weight: bold;padding-left:40%">错误信息列表</span><br>
+            <div class="tableSpan" id="tableEle" style="padding: 0% 3% 0% 3%;">
+              <grid ref="Grid"></grid>
+            </div>
+            <div class="dragLine" v-on:drag="dragDetail" >
+              <div class="arrow" v-on:drag="dragDetail"></div>
+            </div>
+          </div>
+          <div style="background: #fff;width:49%;height:100%;box-shadow: 6px 6px 4px rgba(204,204,204,0.8);">
+            <div class="tableDetail" id="detailEle" >
+              <span style="font-size:24px;color:#000;font-Weight: bold">具体错误信息</span>
+              <textarea class="textArea" rows="21" placeholder="请先查询错误信息列表...">{{errorDetail}}</textarea>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -54,7 +110,9 @@
     data () {
       return {
         userid:'',
-        type: 1,
+        type: '请先选择类型',
+        date: '',
+        time: '',
         startTime: initDate(86400000),
         endTime: initDate(),
         CPUUse: '无数据',
@@ -82,6 +140,12 @@
       query: query,
       changeType: changeType,
       dragDetail: dragDetail,
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      },
       onSearch() {//加载动画
         const loading = this.$loading({
           lock: true,
@@ -92,24 +156,21 @@
         });
         setTimeout(() => {
           loading.close();
-        }, 2000);
-      }
+        }, 3000);
+      },
     }
   }
 
   function initGrid(){
     self.$refs.Grid.tableData = [];
     setTableColunm();
-
     self.$refs.Grid.onRowClick = function(rowData){
       if(self.type == 1){
         self.errorDetail = rowData.errorStack;
       }else{
         self.errorDetail = rowData.track;
       }
-      
     }
-
     self.$refs.Grid.changePage = function(pageNo){
       currentPage = pageNo;
       query(pageNo);
@@ -276,10 +337,10 @@
     }
     detailList({parameter: JSON.stringify(param)}).then(function(res){
       if(!res.errcode){
-        self.CPUUse = (res.data.overview.useRate*100).toFixed(2) + '%';//小数点后取两位
-        self.loadPageTime = res.data.overview.loadTimeout + ' 毫秒';
-        self.interfaceTime = res.data.overview.interfaceTime + ' 毫秒';
-        self.InterfaceError = res.data.overview.interfaceErrors + ' 个';
+        self.CPUUse = (res.data.overview.useRate*100).toFixed(2);//小数点后取两位
+        self.loadPageTime = res.data.overview.loadTimeout;
+        self.interfaceTime = res.data.overview.interfaceTime;
+        self.InterfaceError = res.data.overview.interfaceErrors;
         self.$refs.Grid.tableData = res.data.list;
         leftChartop(parseInt(res.data.overview.useRate*100).toFixed(2));
         leftChartbot(parseInt(res.data.overview.loadTimeout));
@@ -306,17 +367,17 @@
             formatter: "{a} {b} :<br/> {c}%"//tip内容
         },
         toolbox: {
-            feature: {
-                restore: {},
-                saveAsImage: {}
-            }
+            // feature: {
+            //     restore: {},//重置
+            //     saveAsImage: {} //下载
+            // }
         },
         series: [
             {
                 name: '内存使用率',
                 type: 'gauge',
-                center: ["40%","50%"],
-                radius: '90%',
+                center: ["50%","35%"],
+                radius: '70%',
                 pointer: { //指针样式
                         show: true,
                         //指针长度
@@ -327,34 +388,26 @@
                 axisLine: {            // 仪表盘坐标轴
                   lineStyle: {       // lineStyle控制线条样式
                     // color: [[0.1, '#02fee9'],[0.3, '#02c6fe'],[0.5, '#0290fe'],[0.8, '#0267fe'],[1, '#0249fe']],
-                    color: [[0.09, '#02feae'],[0.82, '#1e90ff'],[1, '#ff4500']],
-                    width: 3,
-                    shadowColor : '#02fee9', //默认透明
-                    shadowBlur: 20
+                    color: [[0.25, '#fcc3b7'],[0.5, '#fc8d76'],[0.75, '#fb765b'],[1, '#fc5330']],
+                    width: 2,
+                    shadowColor : '#fff', //默认透明
+                    shadowBlur: 10
                   }
                 },
                 axisLabel: {            // 数字刻度样式
                     textStyle: {       // lineStyle控制线条样式
-                        fontWeight: 'bolder',
-                        color: 'auto',//数字颜色
-                        shadowColor : '#02fee9', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                axisTick: {            // 坐标轴小标记
-                    length :10,        // length控制线长
-                    lineStyle: {       // lineStyle控制线条样式
-                        color: 'auto',
-                        shadowColor : '#02fee9', //默认透明
+                        fontSize: 8,
+                        color: '#fff',//数字颜色
+                        shadowColor : '#fff', //默认透明
                         shadowBlur: 10
                     }
                 },
                 splitLine: {           // 分隔线
-                    length : 15,         // length控制线长
+                    length : 5,         // length控制线长
                     lineStyle: {       // lineStyle（详见lineStyle）控制线条样式
                         width:2,
                         color: '#fff',
-                        shadowColor : '#02fee9', //默认透明
+                        shadowColor : '#fff', //默认透明
                         shadowBlur: 5
                     }
                 },
@@ -364,6 +417,7 @@
                     shadowBlur: 5,
                     offsetCenter: [0, '80%'],       // 数字位置[x,y]
                     textStyle: {  // 仪表盘下方文字样式
+                        fontSize: 20,
                         fontWeight: 'bolder',
                         color: '#02fee9'
                     }
@@ -384,65 +438,57 @@
               formatter: "{a} {b} :<br/> {c}毫秒"
           },
           toolbox: {
-              feature: {
-                  restore: {},
-                  saveAsImage: {}
-              }
+              // feature: {
+              //     restore: {},
+              //     saveAsImage: {}
+              // }
           },
           series: [
               {
                   name: '页面渲染耗时',
                   type: 'gauge',
-                  min: 0,
-                  max: 100,
-                  center: ["40%","50%"],
-                  radius: '90%',
-                  pointer: { //指针样式
-                          show: true,
-                          //指针长度
-                          length:'80%',
-                          shadowColor : '#fff', //默认透明
-                          width:3,
-                      },
+                center: ["50%","35%"],
+                radius: '70%',
+                pointer: { //指针样式
+                        show: true,
+                        //指针长度
+                        length:'80%',
+                        shadowColor : '#fff', //默认透明
+                        width:3,
+                    },
                 axisLine: {            // 仪表盘坐标轴
                   lineStyle: {       // lineStyle控制线条样式
                     // color: [[0.1, '#02fee9'],[0.3, '#02c6fe'],[0.5, '#0290fe'],[0.8, '#0267fe'],[1, '#0249fe']],
-                    color: [[0.09, '#02feae'],[0.82, '#1e90ff'],[1, '#ff4500']],
-                    width: 3,
-                    shadowColor : '#02fee9', //默认透明
-                    shadowBlur: 20
+                    color: [[0.09, '#fff'],[0.82, '#dcddde'],[1, '#ccc']],
+                    width: 2,
+                    shadowColor : '#fff', //默认透明
+                    shadowBlur: 10
                   }
                 },
                 axisLabel: {            // 数字刻度样式
                     textStyle: {       // lineStyle控制线条样式
-                        fontWeight: 'bolder',
-                        color: 'auto',//数字颜色
-                        shadowColor : '#02fee9', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                axisTick: {            // 坐标轴小标记
-                    length :10,        // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle控制线条样式
-                        color: 'auto',
-                        shadowColor : '#02fee9', //默认透明
+                        fontSize: 8,
+                        color: '#fff',//数字颜色
+                        shadowColor : '#fff', //默认透明
                         shadowBlur: 10
                     }
                 },
                 splitLine: {           // 分隔线
-                    length : 15,         // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                    length : 5,         // length控制线长
+                    lineStyle: {       // lineStyle（详见lineStyle）控制线条样式
                         width:2,
-                        color: '#fff',
-                        shadowColor : '#02fee9', //默认透明
+                        color: '#03f8f6',
+                        shadowColor : '#fff', //默认透明
                         shadowBlur: 5
                     }
                 },
                 detail : {
+                    formatter:'{value}',
                     shadowColor : '#ccc', //默认透明
                     shadowBlur: 5,
                     offsetCenter: [0, '80%'],       // 数字位置[x,y]
-                    textStyle: {  //文字样式
+                    textStyle: {  // 仪表盘下方文字样式
+                        fontSize: 20,
                         fontWeight: 'bolder',
                         color: '#02fee9'
                     }
@@ -465,17 +511,17 @@
             formatter: "{a} {b} :<br/> {c}毫秒"
         },
         toolbox: {
-            feature: {
-                restore: {},
-                saveAsImage: {}
-            }
+            // feature: {
+            //     restore: {},
+            //     saveAsImage: {}
+            // }
         },
         series: [
             {
                 name: '接口平均耗时',
                 type: 'gauge',
-                center: ["50%","50%"],
-                radius: '90%',
+                center: ["50%","35%"],
+                radius: '70%',
                 pointer: { //指针样式
                         show: true,
                         //指针长度
@@ -486,42 +532,36 @@
                 axisLine: {            // 仪表盘坐标轴
                   lineStyle: {       // lineStyle控制线条样式
                     // color: [[0.1, '#02fee9'],[0.3, '#02c6fe'],[0.5, '#0290fe'],[0.8, '#0267fe'],[1, '#0249fe']],
-                    color: [[0.09, '#02feae'],[0.82, '#1e90ff'],[1, '#ff4500']],
-                    width: 3,
-                    shadowColor : '#02fee9', //默认透明
-                    shadowBlur: 20
+                    color: [[0.09, '#fff'],[0.82, '#dcddde'],[1, '#ccc']],
+                    width: 2,
+                    shadowColor : '#fff', //默认透明
+                    shadowBlur: 10
                   }
                 },
                 axisLabel: {            // 数字刻度样式
                     textStyle: {       // lineStyle控制线条样式
-                        fontWeight: 'bolder',
-                        color: 'auto',//数字颜色
-                        shadowColor : '#02fee9', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                axisTick: {            // 坐标轴小标记
-                    length :10,        // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle控制线条样式
-                        color: 'auto',
-                        shadowColor : '#02fee9', //默认透明
+                        fontSize: 8,
+                        color: '#fff',//数字颜色
+                        shadowColor : '#fff', //默认透明
                         shadowBlur: 10
                     }
                 },
                 splitLine: {           // 分隔线
-                    length : 15,         // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                    length : 5,         // length控制线长
+                    lineStyle: {       // lineStyle（详见lineStyle）控制线条样式
                         width:2,
-                        color: '#fff',
-                        shadowColor : '#02fee9', //默认透明
+                        color: '#03f8f6',
+                        shadowColor : '#fff', //默认透明
                         shadowBlur: 5
                     }
                 },
                 detail : {
+                    formatter:'{value}',
                     shadowColor : '#ccc', //默认透明
                     shadowBlur: 5,
                     offsetCenter: [0, '80%'],       // 数字位置[x,y]
-                    textStyle: {  //文字样式
+                    textStyle: {  // 仪表盘下方文字样式
+                        fontSize: 20,
                         fontWeight: 'bolder',
                         color: '#02fee9'
                     }
@@ -543,17 +583,17 @@
             formatter: "{a} {b} :<br/> {c}个"
         },
         toolbox: {
-            feature: {
-                restore: {},
-                saveAsImage: {}
-            }
+            // feature: {
+            //     restore: {},
+            //     saveAsImage: {}
+            // }
         },
         series: [
             {
                 name: '接口错误数',
                 type: 'gauge',
-                center: ["50%","50%"],
-                radius: '90%',
+                center: ["50%","35%"],
+                radius: '70%',
                 pointer: { //指针样式
                         show: true,
                         //指针长度
@@ -564,42 +604,36 @@
                 axisLine: {            // 仪表盘坐标轴
                   lineStyle: {       // lineStyle控制线条样式
                     // color: [[0.1, '#02fee9'],[0.3, '#02c6fe'],[0.5, '#0290fe'],[0.8, '#0267fe'],[1, '#0249fe']],
-                    color: [[0.09, '#02feae'],[0.82, '#1e90ff'],[1, '#ff4500']],
-                    width: 3,
-                    shadowColor : '#02fee9', //默认透明
-                    shadowBlur: 20
+                    color: [[0.25, '#fcc3b7'],[0.5, '#fc8d76'],[0.75, '#fb765b'],[1, '#fc5330']],
+                    width: 2,
+                    shadowColor : '#fff', //默认透明
+                    shadowBlur: 10
                   }
                 },
                 axisLabel: {            // 数字刻度样式
                     textStyle: {       // lineStyle控制线条样式
-                        fontWeight: 'bolder',
-                        color: 'auto',//数字颜色
-                        shadowColor : '#02fee9', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                axisTick: {            // 坐标轴小标记
-                    length :10,        // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle控制线条样式
-                        color: 'auto',
-                        shadowColor : '#02fee9', //默认透明
+                        fontSize: 8,
+                        color: '#fff',//数字颜色
+                        shadowColor : '#fff', //默认透明
                         shadowBlur: 10
                     }
                 },
                 splitLine: {           // 分隔线
-                    length : 15,         // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                    length : 5,         // length控制线长
+                    lineStyle: {       // lineStyle（详见lineStyle）控制线条样式
                         width:2,
-                        color: '#fff',
-                        shadowColor : '#02fee9', //默认透明
+                        color: '#03f8f6',
+                        shadowColor : '#fff', //默认透明
                         shadowBlur: 5
                     }
                 },
                 detail : {
+                    formatter:'{value}%',
                     shadowColor : '#ccc', //默认透明
                     shadowBlur: 5,
                     offsetCenter: [0, '80%'],       // 数字位置[x,y]
-                    textStyle: {  //文字样式
+                    textStyle: {  // 仪表盘下方文字样式
+                        fontSize: 20,
                         fontWeight: 'bolder',
                         color: '#02fee9'
                     }
@@ -614,198 +648,262 @@
     myChartrightbot.setOption(option, true);
   }
 
+
 </script>
 
 <style scoped lang="less">
   .container {
-    color: #FFF;//文字颜色白色
     height: 100%;
     width: 100%;
     display: flex;
-    flex-flow: column;
-    // position: relative;
-    // box-sizing: border-box;
-    .systemTitle {
-      position: absolute;
-        width:100%;
-        height: 15.5%;
-        top: 0.2%;
-        margin: auto;
-    }
-    .queryArea{//顶部操作栏
-      width: 100%;
-      height: 10%;
+    align-items: space-around;
+    flex-flow: row;
+    .left{//顶部操作栏
+      width: 20%;
+      height: 100%;
       display: flex;
-      flex-flow: row;
-      align-items: center;
-      justify-content: center;
-      padding-top:150px;
+      flex-flow: column;
+      .left-bot {
+        height: 47%;
+        display: flex;
+        flex-flow: column;
+        justify-content: flex-start;
+        justify-content: space-between;
+      }
+      .left-title {
+        height: 20%;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-around;
+        align-items: center;
+      }
       span{
-        margin: 0 0.2%;//间距
         line-height: 20%;//顶部背景高度
-        padding: 12px;
-        font-size: 15px;
-        border-radius: 5px;
-        background-color: rgba(70,130,180,0.5);//顶部灰色小方块
+        font-size: 22px;
+        font-Weight: bold;
       }
-      .queryButton{
-        padding: 16px 16px;
-        background-color: #03f8f6;//查询按钮颜色
-        cursor: pointer;
+      .leftbutton {
+        display: flex;
+        justify-content: space-around;
       }
     }
-    .mainArea{
-      width:100%;
-      height: 68.5%;
-      display: flex;
-      flex-flow: row;
-      justify-content: space-around;
-      align-content: flex-start;
-      .leftSpan {//左侧边信息栏
-        width: 20%;
-        height: 100%;
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-        align-items: center;
-        // border: 1px solid #03f8f6;
-        ul {
-          list-style: decimal;//列表样式
-          width: 100%;
-          height: 100%;
-          .li {
-            width: 50%;
-            height: 15%;
-            font-size: 20px;
-            display: flex;
-            flex-flow: column;
-            justify-content: center;
-            align-items: center;
-            // line-height: 38px;
-            padding: 0% 15%;
-            .resultSpan{
-              color: #03f8f6;//左方数据颜色蓝色
-              // margin-left: 5px;
-              font-size: 20px; 
-            }
-          }
-          .li-down {
-            width: 50%;
-            font-size: 20px;
-            display: flex;
-            flex-flow: column;
-            justify-content: center;
-            align-items: center;
-            // line-height: 38px;
-            padding: 0% 15%;
-            .resultSpan{
-              color: #03f8f6;//左方数据颜色蓝色
-              // margin-left: 5px;
-              font-size: 20px; 
-            }
-          }
-        }
-      }
-      .middleArea {
-        width: 50%;//中部元素占宽，与两侧元素间隙10%
-        height: 100%;
-        // border: 1px solid #03f8f6;
-        .tableSpan {
-          width: 99%;
-          height: 99.5%;
-          padding: 0.3% 0 0 0.5%;
-          // border: 1px solid #03f8f6;
-        }
-        .dragLine {
-          width: 100%;
-          height: 10px;
-          color: #03f8f6;
-          position: relative;
-          cursor: n-resize;
-          z-index: 100;
-          // margin-top: -5px;
-          .arrow {
-            width: 0;
-            height: 0;
-            color: #03f8f6;
-            // border-bottom: 10px solid #57d2de;
-            // border-left: 14px solid transparent;
-            // border-right: 14px solid transparent;
-            position: absolute;
-            left: 0;
-            right: 0;
-            // top: -14px;
-            cursor: n-resize;
-            margin: auto;
-          }
-        }
-      }
 
-
-      
-      .rightSpan {//右侧边信息栏
-        width: 20%;
-        height: 100%;
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-        align-items: center;
-        // border: 1px solid #03f8f6;
-        ul {
-          list-style: decimal;//列表样式
-          width: 100%;
-          height: 100%;
-          .li {
-            width: 50%;
-            height: 15%;
-            font-size: 20px;
-            display: flex;
-            flex-flow: column;
-            justify-content: center;
-            align-items: center;
-            // line-height: 38px;
-            padding: 0% 25%;
-            .resultSpan{
-              color: #03f8f6;//左方数据颜色蓝色
-              // margin-left: 5px;
-              font-size: 20px; 
-            }
-          }
-          .li-down {
-            width: 50%;
-            font-size: 20px;
-            display: flex;
-            flex-flow: column;
-            justify-content: center;
-            align-items: center;
-            // line-height: 38px;
-            padding: 0% 25%;
-            .resultSpan{
-              color: #03f8f6;//左方数据颜色蓝色
-              // margin-left: 5px;
-              font-size: 20px; 
-            }
-          }
-        }
-      }
-    }
-    .tableDetail {
+    
+    .toptitle {
+      background: #fff;
+      box-shadow: 0px 5px 4px rgba(0,0,0,0.1),;
+      position: absolute;
       width: 100%;
-      height: 10%;
+      height: 7%;
+    }
+    .right{
+      width:100%;
+      height: 85%;
       display: flex;
+      flex-flow: column;
       justify-content: center;
-      padding-bottom: 0.5%;
-      // border: 5px solid #03f8f6;
-        textarea {
-          width: 49.7%;
-          height: 100%;
-          // background-color: rgba(217, 221, 221);
-          // margin: 0px;
-          // resize: none;
-          // box-sizing: border-box;
-          // border: none;
+      padding: 5% 2% 1% 2%;
+      .rightitle {
+        height: 15%;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-around;
+      }
+      .timeimg {
+        height: 20%;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-end;
+        align-items: center;
+      }
+        .datetime {
+          font-size: 20px;
+          color: #333;
         }
-      // }
+      .radar {
+        width: 100%;
+        height: 25%;
+        display: flex;
+        justify-content: center;
+        justify-content: space-around;
+        align-items: center;
+        .cpu {
+          background: rgb(95, 110, 247);
+          box-shadow: 6px 6px 4px rgba(204,204,204,0.8);
+          display: flex;
+          flex-flow: row;
+          justify-content: space-around;
+          align-items: flex-start;
+          width:23%;
+          height:90%;
+          border-radius: 8px;
+          .cpu-text {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+          }
+          .cpu-radar {
+            width: 50%;
+          }
+        }
+        .lTime {
+          background: rgb(157, 71, 243);
+          box-shadow: 6px 6px 4px rgba(204,204,204,0.8);
+          display: flex;
+          flex-flow: row;
+          justify-content: space-around;
+          align-items: flex-start;
+          width:23%;
+          height:90%;
+          border-radius: 8px;
+          .lTime-text {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+          }
+          .lTime-radar {
+            width: 50%;
+          }
+        }
+        .iTime {
+          background: rgb(255, 114, 86);
+          box-shadow: 6px 6px 4px rgba(204,204,204,0.8);
+          display: flex;
+          flex-flow: row;
+          justify-content: space-around;
+          align-items: flex-start;
+          width:23%;
+          height:90%;
+          border-radius: 8px;
+          .iTime-text {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+          }
+          .iTime-radar {
+            width: 50%;
+          }
+        }
+        .iError {
+          background: rgb(52, 153, 248);
+          box-shadow: 6px 6px 4px rgba(204,204,204,0.8);
+          display: flex;
+          flex-flow: row;
+          justify-content: space-around;
+          align-items: flex-start;
+          width:23%;
+          height:90%;
+          border-radius: 8px;
+          .iError-text {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+          }
+          .iError-radar {
+            width: 50%;
+          }
+        }
+          .resultSpan{
+            color: #fff;//左方数据颜色蓝色
+            // margin-left: 5px;
+            font-Weight: bold;
+            font-size: 24px; 
+          }
+      }
+      .rightbot {
+        width: 100%;
+        height: 70%;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-around;
+        align-items: flex-end;
+        .leftArea {
+          display: flex;
+          flex-flow: column;
+          justify-content: center;
+          align-items: flex-start;
+          .tableSpan {
+          }
+          .dragLine {
+            width: 50%;
+            height: 100%;
+            position: relative;
+            cursor: n-resize;
+            z-index: 100;
+            // margin-top: -5px;
+            .arrow {
+              width: 0;
+              height: 0;
+              color: #03f8f6;
+              // border-bottom: 10px solid #57d2de;
+              // border-left: 14px solid transparent;
+              // border-right: 14px solid transparent;
+              position: absolute;
+              left: 0;
+              right: 0;
+              // top: -14px;
+              cursor: n-resize;
+              margin: auto;
+            }
+          }
+        }
+        .tableDetail {
+          display: flex;
+          flex-flow: column;
+          justify-content: flex-start;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+        }
+        .textArea {
+          color:#333;
+          font-size: 18px;
+          font-weight:bold;
+          width: 90%;
+          border:none;
+        }
+        .textArea::-webkit-input-placeholder{
+          font-size: 24px;
+          color:#CCC;
+          font-weight:bold;
+          text-align:center;
+          line-height: 400px
+        }    /* 使用webkit内核的浏览器 */
+        .textArea:-moz-placeholder{
+          font-size: 24px;
+          color:#CCC;
+          font-weight:bold;
+          text-align:center;
+          line-height: 400px
+        }                  /* Firefox版本4-18 */
+        .textArea::-moz-placeholder{
+          font-size: 24px;
+          color:#CCC;
+          font-weight:bold;
+          text-align:center;
+          line-height: 400px
+        }                  /* Firefox版本19+ */
+        .textArea:-ms-input-placeholder{
+          font-size: 24px;
+          color:#CCC;
+          font-weight:bold;
+          text-align:center;
+          line-height: 400px
+        }
+      }
     }
   }
 </style>
