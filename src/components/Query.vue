@@ -1,7 +1,8 @@
 <template>
   <div style="background: #f6f4f5;width:100%;height:100%">
     <div class="container">
-      <div class="left" style="background: url(static/leftbg.jpg);background-size: 100% 100%;z-index:999;">
+      <!-- <div class="left" style="background: url(static/leftbg.png);background-size: 100% 100%;z-index:999;"> //图片-->
+      <div class="left" style="background-image: linear-gradient(180deg, #5f6ef7 40%,#9d47f3 150%);z-index:999;">
         <div class="left-title">
           <img src="static/logo2.png" style="max-height:70%;max-width:70%;">
         </div>
