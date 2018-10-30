@@ -84,7 +84,7 @@ function initMap(option){
             type: 'map',
             mapType: 'china',
             hoverable: false,
-            roam:true,
+            roam:false,//地图禁止放大缩小
 		    data: [],
 		    label: {
 			   normal: {

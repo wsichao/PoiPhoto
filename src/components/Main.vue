@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="z-index:999">
     <div class="stable" >
       <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
           用户在线人数
@@ -17,14 +17,14 @@
       </div>
       <bar-chart class="arrange-v" ref="loadPageTime"  style="background-size: 100% 100%;">
       </bar-chart>
-      <div class="timeimg"><img src="static/radar.png" style="width:20%;height:90%">
+      <div class="timeimg" style="padding-top:24px"><img src="static/radar.png" style="width:20%;height:80%">
         <div class="timefont">
           <div class="datetime" >Date:{{date}}</div>
           <div class="datetime" >Time:{{time}}</div>
         </div>
       </div>
     </div>
-    <div class="change">
+    <div class="change" style="z-index:1">
       <map-chart ref="map"></map-chart>
       <div class="mapDetail" v-show="showMapDetail">
         {{mapDetail}}
@@ -61,7 +61,6 @@
           <div class="datetime" style="font-size:22px;padding-top:30px"> W e b M o n i t o r</div>
         </div>
         <img src="static/radar-right.png" style="width:20%;height:90%">
-      </div>
       </div>
     </div>
   </div>
@@ -126,16 +125,16 @@
       this.date = `${d.getFullYear()}-${lpad((d.getMonth() + 1), 2, '0')}-${lpad(d.getDate(), 2, '0')}`;
       this.time = `${lpad(d.getHours(), 2, '0')}:${lpad(d.getMinutes(), 2, '0')}:${lpad(d.getSeconds(), 2, '0')}`;
     },
-    refreshDateTime() {
-      if (this.interval) {
-        clearInterval(this.interval);
-        this.interval = null;
-      }
+      refreshDateTime() {
+        if (this.interval) {
+          clearInterval(this.interval);
+          this.interval = null;
+        }
 
-      this.interval = setInterval(() => {
-        this.getDateTime();
-      }, 1000);
-    },
+        this.interval = setInterval(() => {
+          this.getDateTime();
+        }, 1000);
+      },
     }
   }
 
@@ -367,13 +366,14 @@
           text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
         }
       .arrange-v{
-        height: 20%;
+        height: 30%;
         width: 70%;
         display: flex;
         justify-content: center;
+        align-items: center;
       }
       .right-a{
-        height: 25%;
+        height: 20%;
         width: 85%;
         font-size: 20px;
         color: #fff;
@@ -385,59 +385,58 @@
       ul {
         list-style: none;
         text-align: left;
-        padding-left: 25%;
+        padding-left: 15%;
         li{
           height: 50%;
           width: 100%;
           color: #fff;
           font-size: 16px;
-          line-height: 250%;
+          line-height: 200%;
           .resultSpan{
             color: #55decd;
             font-size: 18px; 
           }
-        }s
+        }
         .errorTip{
+          width: 80%;
+          height: 100%;
           position: absolute;
-          left: 55%;
-          top: 100%;
-          padding: 2% 3%;
+          padding: 3% 3%;
           border-radius: 10px;
-          background-color: rgba(30,144,255,0.2);
+          background-color: rgba(30,144,255,0.3);
           // box-shadow: rgb(255, 255, 255) 0px 0px 7px;//tip边框外发光
         }
       }
     }
     .change {
-      flex:1; /*这里设置为占比1，填充满剩余空间*/
+      // flex:1; /*这里设置为占比1，填充满剩余空间*/
       height: 100%;
       min-width: 40%;
       position: relative;
       .mapDetail{
-        width: 50%;//usererror
-        min-height: 7%;
+        width: 91%;//usererror
+        min-height: 10%;
         position: absolute;
-        top: 17%;
-        background-color: #999;
-        left: 10%;
-        -webkit-box-shadow: 0 0 6px #fff;
-        box-shadow: 0 0 6px #fff;
-        color: #fff;
+        top: 76%;
+        background-color: rgba(30,144,255,0.3);
+        border-radius: 5;//边框圆角
+        left: 4%;
+        color: #03ccf0;
         padding: 1% 0 0 1%;
         font-size: 14px;
       }
       .systemTitle{
         position: absolute;
         width:250%;
-        height: 18.5%;
+        height: 16%;
         top: 0.2%;
         left: -75%;
         margin: auto;
       }
       .jumpToDetail{
         position: absolute;
-        width: 14%;
-        height: 12%;
+        width: 9%;
+        height: 6%;
         top: 20%;
         left: 100%;
         -webkit-transition: -webkit-transform 0.9s ease-out;
@@ -462,7 +461,7 @@
         top: -11px;
         width: 20px;
         height: 20px;
-        background: silver;
+        background: #03ccf0;
         border-radius: 25px;
         -webkit-box-shadow: 2px 2px 5px 0px black;
         box-shadow: 2px 2px 5px 0px black;
@@ -470,7 +469,7 @@
     }
 
     .close:hover {
-        background: #ddd;
+        background: #03ccf0;
     }
     .close:before {
         position: absolute;
