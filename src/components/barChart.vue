@@ -106,7 +106,7 @@ function initChart(option){
             grid: {
                 left:'20%',//相当于距离左边效果:padding-left
                 top:'3%',//相当于距离上边效果:padding-top
-                bottom: '5%',//
+                bottom: '15%',//
             },
             series: [{
                 type: 'bar',

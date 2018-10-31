@@ -1,44 +1,44 @@
 <template>
   <div style="background: #f6f4f5;width:100%;height:100%">
     <div class="container">
-      <!-- <div class="left" style="background: url(static/leftbg.png);background-size: 100% 100%;z-index:999;"> //图片-->
-      <div class="left" style="background-image: linear-gradient(180deg, #5f6ef7 40%,#9d47f3 150%);z-index:999;">
+      <div class="left" style="background: url(static/leftbg.png);background-size: 100% 100%;z-index:999;"> //图片
+      <!-- <div class="left" style="background-image: linear-gradient(180deg, #5f6ef7 40%,#9d47f3 150%);z-index:999;"> -->
         <div class="left-title">
-          <img src="static/logo2.png" style="max-height:70%;max-width:70%;">
+          <img src="static/logo2.png" style="max-height:60%;max-width:70%;">
         </div>
         <div class="left-bot" >
-          <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="rgba(0,0,0,0)" text-color="#fff" active-text-color="#ffd04b">
+          <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="rgba(0,0,0,0.03)" text-color="#fff" active-text-color="#02effe" >
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-menu" style="color:#02effe;width:40px"></i>
-                <span>列表信息类<span style="color:red">*</span></span>
+                <span>列 表 信 息 类<span style="color:red">*</span></span>
               </template>
-              <el-menu-item-group style="font-size:20px;color:#fff;padding-left:15%">
-                <el-select v-model="type" v-on:change="changeType"  style="width:80%" placeholder="请选择类型"><el-option label="异常" value="1">异常</el-option><el-option label="请求" value="2">请求</el-option></el-select>
+              <el-menu-item-group style="font-size:12px;color:#fff;padding-left:15%">
+                <el-select v-model="type" v-on:change="changeType"  style="width:80%;height:10%" placeholder="请选择类型"><el-option label="异常" value="1">异常</el-option><el-option label="请求" value="2">请求</el-option></el-select>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">
                 <i class="el-icon-edit" style="color:#02effe;width:40px"></i>
-                <span>用户ID查找</span>
+                <span>用 户 ID 查 找</span>
               </template>
               <el-menu-item-group style="padding-left:15%">
-                <el-input type="input" placeholder="请输入用户ID" v-model="userid" style="width:80%" />
+                <el-input type="input" placeholder="请输入用户ID" v-model="userid" style="width:80%;height:10%" />
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="3">
               <template slot="title">
                 <i class="el-icon-time" style="color:#02effe;width:40px"></i>
-                <span>设置查询时间段<span style="color:red">*</span></span>
+                <span>查 询 时 间 段<span style="color:red">*</span></span>
               </template>
-              <el-menu-item-group style="font-size:20px;color:#fff;padding-left:5%">
-                开始:&nbsp;<el-input type="datetime-local" v-model="startTime" style="width:70%"/><br><br>
-                结束:&nbsp;<el-input type="datetime-local" v-model="endTime" style="width:70%"/>
+              <el-menu-item-group style="font-size:14px;color:#fff;padding-left:5%">
+                开始:&nbsp;<el-input type="datetime-local" v-model="startTime" style="width:70%;height:10%"/><br><br>
+                结束:&nbsp;<el-input type="datetime-local" v-model="endTime" style="width:70%;height:10%"/>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
           <div class="leftbutton">
-          <el-button type="primary" icon="el-icon-search"  v-on:click="query" @click="onSearch" style="background-color:#02effe;border:0px;font-size:18px;font-weight:bold;">查询</el-button>
+          <el-button type="primary" icon="el-icon-search"  v-on:click="query" @click="onSearch" style="background-color:#02effe;border:0px;font-size:14px;font-weight:bold;">查询</el-button>
           </div>  
         </div>  
       </div>
@@ -47,51 +47,53 @@
       </div>
       <div class="right">
         <div class="rightitle" >
-          <span style="font-size:24px;color:#333;font-Weight: bold"><img src="static/statistical.png" style="width:2%;height:2%">&nbsp;统计信息[statistical information]</span>
+          <span style="font-size:16px;color:#333;font-Weight: bold"><img src="static/statistical.png" style="width:2%;height:1%">&nbsp;统计信息[statistical information]</span>
         </div>
         <div class="radar">
             <div class="cpu">
               <div class="cpu-text">
-                <span style="font-size:20px;color:#fcfcfc">内存使用率 </span><span class="resultSpan">{{CPUUse}}</span><span style="font-size:16px;color:#fcfcfc">百分比(%)</span>
+                <span style="font-size:14px;color:#fcfcfc">内存使用率 </span><span class="resultSpan">{{CPUUse}}</span><span style="font-size:14px;color:#fcfcfc">百分比(%)</span>
               </div>
               <div class="cpu-radar" id="leftChartop" style="height:230px"></div>
             </div>
             <div class="lTime">
               <div class="lTime-text">
-                  <span style="font-size:20px;color:#fcfcfc">页面渲染耗时 </span><span class="resultSpan">{{loadPageTime}}</span><span style="font-size:16px;color:#fcfcfc">毫秒(ms)</span>
+                  <span style="font-size:14px;color:#fcfcfc">页面渲染耗时 </span><span class="resultSpan">{{loadPageTime}}</span><span style="font-size:14px;color:#fcfcfc">毫秒(ms)</span>
               </div>
               <div class="lTime-radar" id="leftChartbot" style="height:230px"></div>
             </div>
             <div class="iTime">
               <div class="iTime-text">
-              <span style="font-size:20px;color:#fcfcfc">接口平均耗时 </span><span class="resultSpan">{{interfaceTime}}</span><span style="font-size:16px;color:#fcfcfc">毫秒(ms)</span>
+              <span style="font-size:14px;color:#fcfcfc">接口平均耗时 </span><span class="resultSpan">{{interfaceTime}}</span><span style="font-size:14px;color:#fcfcfc">毫秒(ms)</span>
               </div>
               <div class="iTime-radar" id="rightChartop" style="height:230px"></div>
             </div>
             <div class="iError">
               <div class="iError-text">
-                <span style="font-size:20px;color:#fcfcfc">接口错误数 </span><span class="resultSpan">{{InterfaceError}}</span><span style="font-size:16px;color:#fcfcfc">个数(个)</span>
+                <span style="font-size:14px;color:#fcfcfc">接口错误数 </span><span class="resultSpan">{{InterfaceError}}</span><span style="font-size:14px;color:#fcfcfc">个数(个)</span>
               </div>
                 <div class="iError-text" id="rightChartbot" style="height:230px"></div>
             </div>
         </div>
         <div class="rightitle" >
-          <span style="font-size:24px;color:#333;font-Weight: bold"><img src="static/list.png" style="width:2%;height:2%">&nbsp;列表信息[List information]</span>
+          <span style="font-size:16px;color:#333;font-Weight: bold"><img src="static/list.png" style="width:2%;height:1%">&nbsp;列表信息[List information]</span>
         </div>
         <div class="rightbot">
           <div class="leftarea" style="background: #fff;width:49%;height:100%;box-shadow: 6px 6px 4px rgba(204,204,204,0.8);">
-            <span style="font-size:24px;color:background-image: linear-gradient(0deg, #fff 0%,#000 100%);;font-Weight: bold;padding-left:40%">错误信息列表</span><br>
-            <div class="tableSpan" id="tableEle" style="padding: 0% 3% 0% 3%;">
-              <grid ref="Grid"></grid>
-            </div>
-            <div class="dragLine" v-on:drag="dragDetail" >
-              <div class="arrow" v-on:drag="dragDetail"></div>
+            <div style="padding-top:1%">
+              <span style="font-size:14px;color:background-image: linear-gradient(0deg, #fff 0%,#000 100%);;font-Weight: bold;padding-left:40%">错误信息列表</span><br>
+              <div class="tableSpan" id="tableEle" style="padding: 2% 3% 0% 3%;">
+                <grid ref="Grid"></grid>
+              </div>
+              <div class="dragLine" v-on:drag="dragDetail" >
+                <div class="arrow" v-on:drag="dragDetail"></div>
+              </div>
             </div>
           </div>
           <div style="background: #fff;width:49%;height:100%;box-shadow: 6px 6px 4px rgba(204,204,204,0.8);">
-            <div class="tableDetail" id="detailEle" >
-              <span style="font-size:24px;color:#000;font-Weight: bold">具体错误信息</span>
-              <textarea class="textArea" rows="21" placeholder="请先查询错误信息列表...">{{errorDetail}}</textarea>
+            <div class="tableDetail" id="detailEle" style="padding-top:1%">
+              <span style="font-size:14px;color:#000;font-Weight: bold">具体错误信息</span>
+              <textarea class="textArea" rows="30" placeholder="请先查询错误信息列表...">{{errorDetail}}</textarea>
             </div>
           </div>
         </div>
@@ -418,7 +420,7 @@
                     shadowBlur: 5,
                     offsetCenter: [0, '80%'],       // 数字位置[x,y]
                     textStyle: {  // 仪表盘下方文字样式
-                        fontSize: 20,
+                        fontSize: 14,
                         fontWeight: 'bolder',
                         color: '#02fee9'
                     }
@@ -489,7 +491,7 @@
                     shadowBlur: 5,
                     offsetCenter: [0, '80%'],       // 数字位置[x,y]
                     textStyle: {  // 仪表盘下方文字样式
-                        fontSize: 20,
+                        fontSize: 14,
                         fontWeight: 'bolder',
                         color: '#02fee9'
                     }
@@ -562,7 +564,7 @@
                     shadowBlur: 5,
                     offsetCenter: [0, '80%'],       // 数字位置[x,y]
                     textStyle: {  // 仪表盘下方文字样式
-                        fontSize: 20,
+                        fontSize: 14,
                         fontWeight: 'bolder',
                         color: '#02fee9'
                     }
@@ -634,7 +636,7 @@
                     shadowBlur: 5,
                     offsetCenter: [0, '80%'],       // 数字位置[x,y]
                     textStyle: {  // 仪表盘下方文字样式
-                        fontSize: 20,
+                        fontSize: 14,
                         fontWeight: 'bolder',
                         color: '#02fee9'
                     }
@@ -659,7 +661,7 @@
     display: flex;
     align-items: space-around;
     flex-flow: row;
-    .left{//顶部操作栏
+    .left{
       width: 20%;
       height: 100%;
       display: flex;
@@ -668,7 +670,7 @@
         height: 47%;
         display: flex;
         flex-flow: column;
-        justify-content: flex-start;
+        justify-content: center;
         justify-content: space-between;
       }
       .left-title {
@@ -680,7 +682,7 @@
       }
       span{
         line-height: 20%;//顶部背景高度
-        font-size: 22px;
+        font-size: 14px;
         font-Weight: bold;
       }
       .leftbutton {
@@ -698,7 +700,7 @@
       height: 7%;
     }
     .right{
-      width:100%;
+      width:80%;
       height: 85%;
       display: flex;
       flex-flow: column;
@@ -719,7 +721,7 @@
         align-items: center;
       }
         .datetime {
-          font-size: 20px;
+          font-size: 14px;
           color: #333;
         }
       .radar {
@@ -821,7 +823,7 @@
             color: #fff;//左方数据颜色蓝色
             // margin-left: 5px;
             font-Weight: bold;
-            font-size: 24px; 
+            font-size: 16px; 
           }
       }
       .rightbot {
@@ -837,6 +839,7 @@
           justify-content: center;
           align-items: flex-start;
           .tableSpan {
+            overflow:hidden;
           }
           .dragLine {
             width: 50%;
@@ -869,36 +872,37 @@
           width: 100%;
           height: 100%;
         }
-        .textArea {
+        .textArea {//具体错误信息
           color:#333;
-          font-size: 18px;
+          font-size: 12px;
           font-weight:bold;
           width: 90%;
           border:none;
+          overflow:hidden
         }
         .textArea::-webkit-input-placeholder{
-          font-size: 24px;
+          font-size: 12px;
           color:#CCC;
           font-weight:bold;
           text-align:center;
           line-height: 400px
         }    /* 使用webkit内核的浏览器 */
         .textArea:-moz-placeholder{
-          font-size: 24px;
+          font-size: 12px;
           color:#CCC;
           font-weight:bold;
           text-align:center;
           line-height: 400px
         }                  /* Firefox版本4-18 */
         .textArea::-moz-placeholder{
-          font-size: 24px;
+          font-size: 12px;
           color:#CCC;
           font-weight:bold;
           text-align:center;
           line-height: 400px
         }                  /* Firefox版本19+ */
         .textArea:-ms-input-placeholder{
-          font-size: 24px;
+          font-size: 12px;
           color:#CCC;
           font-weight:bold;
           text-align:center;
