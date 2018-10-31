@@ -30,7 +30,9 @@
         {{mapDetail}}
         <div class="close" v-on:click="showMapDetail=false"></div>
       </div>
-      <div class="systemTitle" style="background: url(static/title.png);background-size: 100% 100%;"></div>
+      <div class="systemTitle">
+        <img src="static/title.png" style="width:100%;height:auto">
+      </div>
       <div class="jumpToDetail" style="background-image: url(static/jump1.png);background-size: 100% 100%" title="跳转至详情页面" v-on:click="jumpToDetail"></div>
     </div>
     <div class="stable">
@@ -333,7 +335,7 @@
       height:48%;
       width: 38%; /*固定宽度*/////////////////
       text-align: center;
-      padding-top: 5%;
+      padding-top: 6%;
       padding-left: 4%;
       .timeimg {
         height: 20%;
@@ -387,12 +389,13 @@
         list-style: none;
         text-align: left;
         padding-left: 15%;
+        padding-top: 10%;
         li{
           height: 50%;
           width: 100%;
           color: #fff;
           font-size: 14px;
-          line-height: 200%;
+          line-height: 300%;
           .resultSpan{
             color: #55decd;
             font-size: 12px; 

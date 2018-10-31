@@ -746,7 +746,7 @@
             height: 100%;
             display: flex;
             flex-flow: column;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
           }
           .cpu-radar {
@@ -768,7 +768,7 @@
             height: 100%;
             display: flex;
             flex-flow: column;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
           }
           .lTime-radar {
@@ -790,7 +790,7 @@
             height: 100%;
             display: flex;
             flex-flow: column;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
           }
           .iTime-radar {
@@ -812,7 +812,7 @@
             height: 100%;
             display: flex;
             flex-flow: column;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
           }
           .iError-radar {
@@ -823,7 +823,7 @@
             color: #fff;//左方数据颜色蓝色
             // margin-left: 5px;
             font-Weight: bold;
-            font-size: 16px; 
+            font-size: 18px; 
           }
       }
       .rightbot {
