@@ -1,23 +1,23 @@
 <template>
   <div class="container" style="z-index:999">
     <div class="stable" >
-      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
           用户在线人数
       </div>
       <pie-chart class="arrange-v" ref="userOnline"  style="background-size: 100% 100%;">
       </pie-chart>
       <!-- background: url(static/box.png); -->
-      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
           接口请求耗时TOP10省份
       </div>
       <bar-chart class="arrange-v" ref="interfaceTime" style="background-size: 100% 100%;" >
       </bar-chart>
-      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
           页面渲染耗时TOP10省份
       </div>
       <bar-chart class="arrange-v" ref="loadPageTime"  style="background-size: 100% 100%;">
       </bar-chart>
-      <div class="timeimg" style="padding-top:24px"><img src="static/radar.png" style="width:20%;height:80%">
+      <div class="timeimg" ><img src="static/radar.png" style="width:24%;height:80%">
         <div class="timefont">
           <div class="datetime" >Date:{{date}}</div>
           <div class="datetime" >Time:{{time}}</div>
@@ -30,20 +30,22 @@
         {{mapDetail}}
         <div class="close" v-on:click="showMapDetail=false"></div>
       </div>
-      <div class="systemTitle" style="background: url(static/title.png);background-size: 100% 100%;"></div>
-      <div class="jumpToDetail" style="background-image: url(static/jump1.png);" title="跳转至详情页面" v-on:click="jumpToDetail"></div>
+      <div class="systemTitle">
+        <img src="static/title.png" style="width:100%;height:auto">
+      </div>
+      <div class="jumpToDetail" style="background-image: url(static/jump1.png);background-size: 100% 100%" title="跳转至详情页面" v-on:click="jumpToDetail"></div>
     </div>
     <div class="stable">
-        <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+        <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
         Chrome各版本使用占比
         </div>
       <pie-chart class="arrange-v" ref="browser"style="background-size: 100% 100%;">
       </pie-chart>
-      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
         接口错误统计TOP10省份
         </div>
       <bar-chart class="arrange-v" ref="interfaceError"style="background-size: 100% 100%;"></bar-chart>
-        <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%;">
+        <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
           近一月信息
         </div>
       <div class="arrange-v" style="background-size: 100% 100%;">
@@ -58,9 +60,9 @@
       </div>
       <div class="timeimg-right">
         <div class="timefont-right">
-          <div class="datetime" style="font-size:22px;padding-top:30px"> W e b M o n i t o r</div>
+          <div class="datetime" style="font-size:16px;"> W e b M o n i t o r</div>
         </div>
-        <img src="static/radar-right.png" style="width:20%;height:90%">
+        <img src="static/radar-right.png" style="width:24%;height:80%">
       </div>
     </div>
   </div>
@@ -333,18 +335,19 @@
       height:48%;
       width: 38%; /*固定宽度*/////////////////
       text-align: center;
-      padding-top: 5%;
+      padding-top: 6%;
       padding-left: 4%;
       .timeimg {
         height: 20%;
         width: 100%;
         display: flex;
+        padding-top: 13%;
       }
       .timeimg-right {
-        height: 18%;
+        height: 20%;
         width: 100%;
         display: flex;
-        padding-top: 13%;
+        padding-top: 21%;
         // align-items: flex-start;
         justify-content: center;
       }
@@ -356,12 +359,12 @@
       }
       .timefont-right {
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
         flex-flow:column; /*伸缩项目单行排列*/
         align-items: center
       }
         .datetime {
-          font-size: 20px;
+          font-size: 16px;
           color: #47a2ff;
           text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
         }
@@ -373,9 +376,9 @@
         align-items: center;
       }
       .right-a{
-        height: 20%;
+        height: 15%;
         width: 85%;
-        font-size: 20px;
+        font-size: 14px;
         color: #fff;
         display: flex;
         justify-content: center;
@@ -386,19 +389,20 @@
         list-style: none;
         text-align: left;
         padding-left: 15%;
+        padding-top: 10%;
         li{
           height: 50%;
           width: 100%;
           color: #fff;
-          font-size: 16px;
-          line-height: 200%;
+          font-size: 14px;
+          line-height: 300%;
           .resultSpan{
             color: #55decd;
-            font-size: 18px; 
+            font-size: 12px; 
           }
         }
         .errorTip{
-          width: 80%;
+          width: 100%;
           height: 100%;
           position: absolute;
           padding: 3% 3%;
@@ -423,7 +427,7 @@
         left: 4%;
         color: #03ccf0;
         padding: 1% 0 0 1%;
-        font-size: 14px;
+        font-size: 12px;
       }
       .systemTitle{
         position: absolute;
@@ -436,7 +440,7 @@
       .jumpToDetail{
         position: absolute;
         width: 9%;
-        height: 6%;
+        height: 7%;
         top: 20%;
         left: 100%;
         -webkit-transition: -webkit-transform 0.9s ease-out;

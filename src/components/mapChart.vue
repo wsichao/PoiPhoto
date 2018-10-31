@@ -75,7 +75,7 @@ function initMap(option){
         ],
         textStyle:{
             color: ' rgba(10, 175, 230)',
-            fontSize: 18
+            fontSize: 14
         }, 
     },
 	series : [

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-table :data="tableData" height="420" style="width: 100%;"   @row-click="onRowClick">
+        <el-table :data="tableData" height="350px" style="width: 100%;"   @row-click="onRowClick">
             <el-table-column v-for="col in cols" :prop="col.prop" :label="col.label" :width="130" :formatter="col.formatter" :key="index">
             </el-table-column>
         </el-table>
@@ -55,13 +55,13 @@ function initContent(content){
     content = content || {};
     vueObj[content.ref].$el.id = content.id || createUUID();
     var style = {
-        height: content.height || '300px',
+        height: content.height || '100%',
         width: content.width || '100%'
     }
     for(var o in style){
         vueObj[content.ref].$el.style[o] = style[o];
     }
-    document.getElementById(vueObj[content.ref].$el.id).getElementsByClassName('el-table__body')[0].style.maxHeight = (content.height - 90) +'px'
+    document.getElementById(vueObj[content.ref].$el.id).getElementsByClassName('el-table__body')[0].style.maxHeight = (content.height ) +'px'
 }
 
 /**
@@ -85,11 +85,13 @@ function createUUID(){
     }
     .el-table {
         background-color: rgba(0,0,0,0.0);//表格背景透明
+        font-size:12px;
         border:1px solid #e0e0e0;
+        overflow:hidden;
         .el-table__empty-block{
             background-color:rgba(0,0,0,0.0);//起始背景框透明
             span{
-                font-size: 24px;
+                font-size: 14px;
                 color:#CCC;//起始暂无数据颜色
                 font-weight:bold;
             }
@@ -128,7 +130,7 @@ function createUUID(){
         word-break: break-all;
         line-height: 23px;
         text-overflow: ellipsis;
-        overflow: auto;
+        overflow: hidden;
     }
     .el-pagination{
         padding: 0.1% 45%;
