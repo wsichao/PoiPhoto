@@ -44,7 +44,7 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height:  '25%',//饼状图的大小
+        height:  '10%',//饼状图的大小
         width:  '100%',
         position: 'relative'
     }
@@ -80,7 +80,7 @@ function initChart(option){
         },
         series:[{
             radius:['80%', '100%'],
-            center: ['44%', '50%'],
+            center: ['50%', '50%'],
             name: '',
             type:'pie',
             sort: 'ascending', 

@@ -7,7 +7,7 @@
           <img src="static/logo2.png" style="max-height:60%;max-width:70%;">
         </div>
         <div class="left-bot" >
-          <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="rgba(0,0,0,0.03)" text-color="#fff" active-text-color="#02effe" >
+          <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="rgba(0,0,0,0.03)" text-color="#fff" style="border-right-width: 0">
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-menu" style="color:#02effe;width:40px"></i>
@@ -52,27 +52,27 @@
         <div class="radar">
             <div class="cpu">
               <div class="cpu-text">
-                <span style="font-size:14px;color:#fcfcfc">内存使用率 </span><span class="resultSpan">{{CPUUse}}</span><span style="font-size:14px;color:#fcfcfc">百分比(%)</span>
+                <span style="font-size:12px;color:#fcfcfc">内存使用率 </span><span class="resultSpan">{{CPUUse}}</span><span style="font-size:14px;color:#fcfcfc">百分比(%)</span>
               </div>
-              <div class="cpu-radar" id="leftChartop" style="height:230px"></div>
+              <div class="cpu-radar" id="leftChartop"></div>
             </div>
             <div class="lTime">
               <div class="lTime-text">
-                  <span style="font-size:14px;color:#fcfcfc">页面渲染耗时 </span><span class="resultSpan">{{loadPageTime}}</span><span style="font-size:14px;color:#fcfcfc">毫秒(ms)</span>
+                  <span style="font-size:12px;color:#fcfcfc">页面渲染耗时 </span><span class="resultSpan">{{loadPageTime}}</span><span style="font-size:12px;color:#fcfcfc">毫秒(ms)</span>
               </div>
-              <div class="lTime-radar" id="leftChartbot" style="height:230px"></div>
+              <div class="lTime-radar" id="leftChartbot"></div>
             </div>
             <div class="iTime">
               <div class="iTime-text">
-              <span style="font-size:14px;color:#fcfcfc">接口平均耗时 </span><span class="resultSpan">{{interfaceTime}}</span><span style="font-size:14px;color:#fcfcfc">毫秒(ms)</span>
+              <span style="font-size:12px;color:#fcfcfc">接口平均耗时 </span><span class="resultSpan">{{interfaceTime}}</span><span style="font-size:12px;color:#fcfcfc">毫秒(ms)</span>
               </div>
-              <div class="iTime-radar" id="rightChartop" style="height:230px"></div>
+              <div class="iTime-radar" id="rightChartop"></div>
             </div>
             <div class="iError">
               <div class="iError-text">
-                <span style="font-size:14px;color:#fcfcfc">接口错误数 </span><span class="resultSpan">{{InterfaceError}}</span><span style="font-size:14px;color:#fcfcfc">个数(个)</span>
+                <span style="font-size:12px;color:#fcfcfc">接口错误数 </span><span class="resultSpan">{{InterfaceError}}</span><span style="font-size:12px;color:#fcfcfc">个数(个)</span>
               </div>
-                <div class="iError-text" id="rightChartbot" style="height:230px"></div>
+                <div class="iError-text" id="rightChartbot"></div>
             </div>
         </div>
         <div class="rightitle" >
@@ -93,7 +93,7 @@
           <div style="background: #fff;width:49%;height:100%;box-shadow: 6px 6px 4px rgba(204,204,204,0.8);">
             <div class="tableDetail" id="detailEle" style="padding-top:1%">
               <span style="font-size:14px;color:#000;font-Weight: bold">具体错误信息</span>
-              <textarea class="textArea" rows="30" placeholder="请先查询错误信息列表...">{{errorDetail}}</textarea>
+              <div class="textArea" >{{errorDetail}}</div>
             </div>
           </div>
         </div>
@@ -196,14 +196,14 @@
     var detailObj = document.getElementsByClassName('tableDetail')[0];
     var rightHeight = document.getElementsByClassName('middleArea')[0].offsetHeight;
     if(tableObj.offsetHeight < 300){
-      tableObj.style.height = '300px';
+      tableObj.style.height = '100%';
       detailObj.style.height = rightHeight-300 + 'px';
       lastY = document.getElementsByClassName('dragLine')[0].offsetTop;
       return;
     }
     if(detailObj.offsetHeight < 100){
       detailObj.style.height = '100px';
-      tableObj.style.height = rightHeight-100 + 'px';
+      tableObj.style.height = rightHeight;
       lastY = document.getElementsByClassName('dragLine')[0].offsetTop;
       return;
     }
@@ -379,7 +379,7 @@
             {
                 name: '内存使用率',
                 type: 'gauge',
-                center: ["50%","35%"],
+                center: ["50%","50%"],
                 radius: '70%',
                 pointer: { //指针样式
                         show: true,
@@ -450,7 +450,7 @@
               {
                   name: '页面渲染耗时',
                   type: 'gauge',
-                center: ["50%","35%"],
+                center: ["50%","50%"],
                 radius: '70%',
                 pointer: { //指针样式
                         show: true,
@@ -502,7 +502,7 @@
       };
       if(!myChartleftbot){
         myChartleftbot = echarts.init(document.getElementById('leftChartbot'));//初始化图表
-      }
+      }0
       myChartleftbot.setOption(option, true);
     }
 
@@ -523,7 +523,7 @@
             {
                 name: '接口平均耗时',
                 type: 'gauge',
-                center: ["50%","35%"],
+                center: ["50%","50%"],
                 radius: '70%',
                 pointer: { //指针样式
                         show: true,
@@ -595,7 +595,7 @@
             {
                 name: '接口错误数',
                 type: 'gauge',
-                center: ["50%","35%"],
+                center: ["50%","50%"],
                 radius: '70%',
                 pointer: { //指针样式
                         show: true,
@@ -751,6 +751,7 @@
           }
           .cpu-radar {
             width: 50%;
+            height: 100%;
           }
         }
         .lTime {
@@ -773,6 +774,7 @@
           }
           .lTime-radar {
             width: 50%;
+            height: 100%;
           }
         }
         .iTime {
@@ -795,6 +797,7 @@
           }
           .iTime-radar {
             width: 50%;
+            height: 100%;
           }
         }
         .iError {
@@ -817,13 +820,14 @@
           }
           .iError-radar {
             width: 50%;
+            height: 100%;
           }
         }
           .resultSpan{
             color: #fff;//左方数据颜色蓝色
             // margin-left: 5px;
             font-Weight: bold;
-            font-size: 18px; 
+            font-size: 14px; 
           }
       }
       .rightbot {
@@ -839,6 +843,7 @@
           justify-content: center;
           align-items: flex-start;
           .tableSpan {
+            height: 100%;
             overflow:hidden;
           }
           .dragLine {

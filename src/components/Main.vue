@@ -1,68 +1,72 @@
 <template>
   <div class="container" style="z-index:999">
-    <div class="stable" >
-      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
-          用户在线人数
-      </div>
-      <pie-chart class="arrange-v" ref="userOnline"  style="background-size: 100% 100%;">
-      </pie-chart>
-      <!-- background: url(static/box.png); -->
-      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
-          接口请求耗时TOP10省份
-      </div>
-      <bar-chart class="arrange-v" ref="interfaceTime" style="background-size: 100% 100%;" >
-      </bar-chart>
-      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
-          页面渲染耗时TOP10省份
-      </div>
-      <bar-chart class="arrange-v" ref="loadPageTime"  style="background-size: 100% 100%;">
-      </bar-chart>
-      <div class="timeimg" ><img src="static/radar.png" style="width:24%;height:80%">
-        <div class="timefont">
-          <div class="datetime" >Date:{{date}}</div>
-          <div class="datetime" >Time:{{time}}</div>
-        </div>
-      </div>
+    <div class="title">
+        <img src="static/title.png" style="width:100%">
     </div>
-    <div class="change" style="z-index:1">
-      <map-chart ref="map"></map-chart>
-      <div class="mapDetail" v-show="showMapDetail">
-        {{mapDetail}}
-        <div class="close" v-on:click="showMapDetail=false"></div>
-      </div>
-      <div class="systemTitle">
-        <img src="static/title.png" style="width:100%;height:auto">
-      </div>
-      <div class="jumpToDetail" style="background-image: url(static/jump1.png);background-size: 100% 100%" title="跳转至详情页面" v-on:click="jumpToDetail"></div>
-    </div>
-    <div class="stable">
+    <div  class="major">
+      <div class="stable" >
         <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
-        Chrome各版本使用占比
+            用户在线人数
         </div>
-      <pie-chart class="arrange-v" ref="browser"style="background-size: 100% 100%;">
-      </pie-chart>
-      <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
-        接口错误统计TOP10省份
-        </div>
-      <bar-chart class="arrange-v" ref="interfaceError"style="background-size: 100% 100%;"></bar-chart>
+        <pie-chart class="arrange-v" ref="userOnline"  style="background-size: 100% 100%;">
+        </pie-chart>
+        <!-- background: url(static/box.png); -->
         <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
-          近一月信息
+            接口请求耗时TOP10省份
         </div>
-      <div class="arrange-v" style="background-size: 100% 100%;">
-        <ul>
-          <li><span>近一月接口错误总数：<span class="resultSpan">{{errorTotal}}</span></span><br></li>
-          <li><span>近一月接口平均耗时：<span class="resultSpan">{{averageTime}}</span></span><br></li>
-          <li style="position:relative">
-            <span>近一月异常人员数量：<span class="resultSpan" v-on:mouseover="showUserId=true" v-on:mouseleave="showUserId=false" style="text-decoration: underline;cursor: pointer;">{{errorUser}}</span></span>
-            <div v-show="showUserId" class="errorTip"><span>错误用户ID：{{errorUserID}}</span></div>
-          </li>
-        </ul>
+        <bar-chart class="arrange-v" ref="interfaceTime" style="background-size: 100% 100%;" >
+        </bar-chart>
+        <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
+            页面渲染耗时TOP10省份
+        </div>
+        <bar-chart class="arrange-v" ref="loadPageTime"  style="background-size: 100% 100%;">
+        </bar-chart>
+        <div class="timeimg" ><img src="static/radar.png" style="height:70%">
+          <div class="timefont">
+            <div class="datetime" >Date:{{date}}</div>
+            <div class="datetime" >Time:{{time}}</div>
+          </div>
+        </div>
       </div>
-      <div class="timeimg-right">
-        <div class="timefont-right">
-          <div class="datetime" style="font-size:16px;"> W e b M o n i t o r</div>
+      <div class="change" style="z-index:1">
+        <map-chart ref="map"></map-chart>
+        <div class="mapDetail" v-show="showMapDetail" >
+          {{mapDetail}}
+          <div class="close" v-on:click="showMapDetail=false"></div>
         </div>
-        <img src="static/radar-right.png" style="width:24%;height:80%">
+        <div class="jumpToDetail" title="跳转至详情页面" v-on:click="jumpToDetail">
+          <img src="static/jump1.png" style="width:66px">
+        </div>
+      </div>
+      <div class="stable">
+          <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
+          Chrome各版本使用占比
+          </div>
+        <pie-chart class="arrange-v" ref="browser"style="background-size: 100% 100%;">
+        </pie-chart>
+        <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
+          接口错误统计TOP10省份
+          </div>
+        <bar-chart class="arrange-v" ref="interfaceError"style="background-size: 100% 100%;"></bar-chart>
+          <div class="right-a" style="background: url(static/box.png);background-size: 100% 100%">
+            近一月信息
+          </div>
+        <div class="arrange-v">
+          <ul>
+            <li><span>近一月接口错误总数：<span class="resultSpan">{{errorTotal}}</span></span><br></li>
+            <li><span>近一月接口平均耗时：<span class="resultSpan">{{averageTime}}</span></span><br></li>
+            <li style="position:relative">
+              <span>近一月异常人员数量：<span class="resultSpan" v-on:mouseover="showUserId=true" v-on:mouseleave="showUserId=false" style="text-decoration: underline;cursor: pointer;">{{errorUser}}</span></span>
+              <div v-show="showUserId" class="errorTip"><span>错误用户ID：{{errorUserID}}</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="timeimg-right">
+          <div class="timefont-right">
+            <div class="datetime" style="font-size:12px;"> W e b M o n i t o r</div>
+          </div>
+          <img src="static/radar-right.png" style="height:70%">
+        </div>
       </div>
     </div>
   </div>
@@ -317,7 +321,7 @@
   }
 
   function jumpToDetail(){
-    window.open('index.html#/query');
+    window.open('http://localhost:8080/index.html#/query');
   }
 
 </script>
@@ -328,174 +332,184 @@
     height: 100%;
     width: 100%;
     display:flex; /*设为伸缩容器*/
+    flex-flow: column;
     // align-content: flex-start;
     // flex-flow:row; /*伸缩项目单行排列*/
     // align-items: center; /* 上下居中 */
-    .stable {
-      height:48%;
-      width: 38%; /*固定宽度*/////////////////
-      text-align: center;
-      padding-top: 6%;
-      padding-left: 4%;
-      .timeimg {
-        height: 20%;
-        width: 100%;
-        display: flex;
-        padding-top: 13%;
-      }
-      .timeimg-right {
-        height: 20%;
-        width: 100%;
-        display: flex;
-        padding-top: 21%;
-        // align-items: flex-start;
-        justify-content: center;
-      }
-      .timefont {
-        display: flex;
-        justify-content: center;
-        flex-flow:column; /*伸缩项目单行排列*/
-        align-items: center
-      }
-      .timefont-right {
-        display: flex;
-        justify-content: center;
-        flex-flow:column; /*伸缩项目单行排列*/
-        align-items: center
-      }
-        .datetime {
-          font-size: 16px;
-          color: #47a2ff;
-          text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
-        }
-      .arrange-v{
-        height: 30%;
-        width: 70%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .right-a{
-        height: 15%;
-        width: 85%;
-        font-size: 14px;
-        color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .title {//标题
+      width: 100%;
+      height: 15%;
+    }
+    .major {//主干
+      width: 100%;
+      height: 85%;
+      display: flex;
+      flex-flow: row;
+      .stable {
+        height:100%;
+        width: 20%; /*固定宽度*/////////////////
         text-align: center;
-      }
-      ul {
-        list-style: none;
-        text-align: left;
-        padding-left: 15%;
-        padding-top: 10%;
-        li{
-          height: 50%;
+        display: flex;
+        flex-flow: column;
+        justify-content: flex-end;
+        justify-content: space-around;
+        align-items: center;
+        .timeimg {
+          height: 15%;
           width: 100%;
-          color: #fff;
-          font-size: 14px;
-          line-height: 300%;
-          .resultSpan{
-            color: #55decd;
-            font-size: 12px; 
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .timeimg-right {
+          height: 15%;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .timefont {
+          display: flex;
+          justify-content: center;
+          flex-flow:column; /*伸缩项目单行排列*/
+          align-items: flex-start;
+        }
+        .timefont-right {
+          display: flex;
+          justify-content: center;
+          flex-flow:row; /*伸缩项目单行排列*/
+          align-items: center
+        }
+          .datetime {
+            font-size: 12px;
+            color: #47a2ff;
+            text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
+          }
+        .arrange-v{
+          height: 20%;
+          width: 70%;
+          display: flex;
+          ul {
+            display: flex;
+            flex-flow: column;
+            align-items: flex-start;
+            height: 100%;
+            width: 100%;
+            list-style: none;
+            text-align: left;
+            li{
+              height: 100%;
+              width: 100%;
+              color: #fff;
+              font-size: 12px;
+              // line-height: 10%;
+              .resultSpan{
+                color: #55decd;
+                font-size: 14px; 
+              }
+            }
+            .errorTip{
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              padding: 3% 3%;
+              border-radius: 10px;
+              background-color: rgba(30,144,255,0.3);
+              // box-shadow: rgb(255, 255, 255) 0px 0px 7px;//tip边框外发光
+            }
           }
         }
-        .errorTip{
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          padding: 3% 3%;
-          border-radius: 10px;
-          background-color: rgba(30,144,255,0.3);
-          // box-shadow: rgb(255, 255, 255) 0px 0px 7px;//tip边框外发光
+        .right-a{
+          height: 8%;
+          width: 85%;
+          font-size: 12px;
+          color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
         }
       }
-    }
-    .change {
-      // flex:1; /*这里设置为占比1，填充满剩余空间*/
-      height: 100%;
-      min-width: 40%;
-      position: relative;
-      .mapDetail{
-        width: 91%;//usererror
-        min-height: 10%;
-        position: absolute;
-        top: 76%;
-        background-color: rgba(30,144,255,0.3);
-        border-radius: 5;//边框圆角
-        left: 4%;
-        color: #03ccf0;
-        padding: 1% 0 0 1%;
-        font-size: 12px;
-      }
-      .systemTitle{
-        position: absolute;
-        width:250%;
-        height: 16%;
-        top: 0.2%;
-        left: -75%;
-        margin: auto;
-      }
-      .jumpToDetail{
-        position: absolute;
-        width: 9%;
-        height: 7%;
-        top: 20%;
-        left: 100%;
-        -webkit-transition: -webkit-transform 0.9s ease-out;
-        -moz-transition: -moz-transform 0.9s ease-out;
-        -o-transition: -o-transform 0.9s ease-out;
-        -ms-transition: -ms-transform 0.9s ease-out;
-        // right: 52px;
-        cursor: pointer;
-      }
-      .jumpToDetail:hover {//旋转效果
-        // transform: scale(0.5);//缩放比例
-        -webkit-transform: rotateZ(360deg);
-        -moz-transform: rotateZ(360deg);
-        -o-transform: rotateZ(360deg);
-        -ms-transform: rotateZ(360deg);
-        transform: rotateZ(360deg);
-      }
-    }
-    .close {
-        position: absolute;
-        right: -14px;
-        top: -11px;
-        width: 20px;
-        height: 20px;
-        background: #03ccf0;
-        border-radius: 25px;
-        -webkit-box-shadow: 2px 2px 5px 0px black;
-        box-shadow: 2px 2px 5px 0px black;
-        cursor: pointer;
-    }
+      .change {
+        // flex:1; /*这里设置为占比1，填充满剩余空间*/
+        height: 100%;
+        width: 60%;
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        align-items: flex-start;
+        .mapDetail{
+          width: 30%;//usererror
+          height: 5%;
+          position: absolute;
+          top: 20%;
+          background-color: rgba(30,144,255,0.3);
+          border-radius: 5;//边框圆角
+          // left: 4%;
+          color: #03ccf0;
+          padding: 1% 0 0 1%;
+          font-size: 12px;
+          .close {
+              position: absolute;
+              right: -14px;
+              top: -11px;
+              width: 20px;
+              height: 20px;
+              background: #03ccf0;
+              border-radius: 25px;
+              -webkit-box-shadow: 2px 2px 5px 0px black;
+              box-shadow: 2px 2px 5px 0px black;
+              cursor: pointer;
+          }
 
-    .close:hover {
-        background: #03ccf0;
-    }
-    .close:before {
-        position: absolute;
-        content: '';
-        width: 17px;
-        height: 2px;
-        background: white;
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
-        top: 9px;
-        left: 2px;
-    }
-    .close:after{
-        content: '';
-        position: absolute;
-        width: 17px;
-        height: 2px;
-        background: white;
-        -webkit-transform: rotate(-45deg);
-        transform: rotate(-45deg);
-        top: 9px;
-        left: 2px;
+          .close:hover {
+              background: #03ccf0;
+          }
+          .close:before {
+              position: absolute;
+              content: '';
+              width: 17px;
+              height: 2px;
+              background: white;
+              -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
+              top: 9px;
+              left: 2px;
+          }
+          .close:after{
+              content: '';
+              position: absolute;
+              width: 17px;
+              height: 2px;
+              background: white;
+              -webkit-transform: rotate(-45deg);
+              transform: rotate(-45deg);
+              top: 9px;
+              left: 2px;
+          }
+        }
+        .jumpToDetail{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 10%;
+          height: 10%;
+          -webkit-transition: -webkit-transform 0.9s ease-out;
+          -moz-transition: -moz-transform 0.9s ease-out;
+          -o-transition: -o-transform 0.9s ease-out;
+          -ms-transition: -ms-transform 0.9s ease-out;
+          // right: 52px;
+          cursor: pointer;
+        }
+        .jumpToDetail:hover {//旋转效果
+          // transform: scale(0.5);//缩放比例
+          -webkit-transform: rotateZ(360deg);
+          -moz-transform: rotateZ(360deg);
+          -o-transform: rotateZ(360deg);
+          -ms-transform: rotateZ(360deg);
+          transform: rotateZ(360deg);
+        }
+      }
     }
   }
 </style>
