@@ -29,6 +29,7 @@ export default {
     methods: {
         initContent: initContent,
         refreshWidth: refreshWidth,
+        refreshheight: refreshWidth,
         onRowClick: function(){},
         changePage: function(){}
     }
