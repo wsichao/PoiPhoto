@@ -1,5 +1,5 @@
 <template>
-        <el-table :data="tableData" @row-click="onRowClick">
+        <el-table :data="tableData" height="250px"  @row-click="onRowClick">
             <el-table-column v-for="col in cols" :prop="col.prop" :label="col.label" :width="130" :formatter="col.formatter" :key="index">
             </el-table-column>
         </el-table>
@@ -92,7 +92,6 @@ function createUUID(){
         padding: 5px 0;
     }
     .el-table {
-        height: 100px;
         background-color: rgba(0,0,0,0.0);//表格背景透明
         font-size:12px;
         border:1px solid #e0e0e0;

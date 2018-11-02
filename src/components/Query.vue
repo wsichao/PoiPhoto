@@ -92,7 +92,7 @@
           </div>
           <div style="background: #fff;width:49%;height:100%;box-shadow: 6px 6px 4px rgba(204,204,204,0.8);">
             <div class="tableDetail" id="detailEle" style="padding-top:1%">
-              <span style="font-size:14px;color:#000;font-Weight: bold">具体错误信息</span>
+              <span style="font-size:14px;color:#000;font-Weight: bold">具体错误信息</span><br>
               <div class="textArea" >{{errorDetail}}</div>
             </div>
           </div>
@@ -196,14 +196,14 @@
     var detailObj = document.getElementsByClassName('tableDetail')[0];
     var rightHeight = document.getElementsByClassName('middleArea')[0].offsetHeight;
     if(tableObj.offsetHeight < 300){
-      tableObj.style.height = '100%';
+      tableObj.style.height = '300px';
       detailObj.style.height = rightHeight-300 + 'px';
       lastY = document.getElementsByClassName('dragLine')[0].offsetTop;
       return;
     }
     if(detailObj.offsetHeight < 100){
       detailObj.style.height = '100px';
-      tableObj.style.height = rightHeight;
+      tableObj.style.height = rightHeight-100 + 'px';
       lastY = document.getElementsByClassName('dragLine')[0].offsetTop;
       return;
     }
@@ -222,11 +222,11 @@
       self.$refs.Grid.cols = [{
         label: '列号',
         prop: 'col',
-        width: outerWidth/18
+        width: outerWidth/36
       },{
         label: '登录用户',
         prop: 'userName',
-        width: outerWidth/18
+        width: outerWidth/36
       },{
         label: '错误概述',
         prop: 'errorMsg',
@@ -238,7 +238,7 @@
       },{
         label: '行号',
         prop: 'line',
-        width: outerWidth/18
+        width: outerWidth/36
       },{
         label: '日期',
         prop: 'msg',
@@ -264,7 +264,7 @@
       self.$refs.Grid.cols = [{
         label: '接口状态',
         prop: 'flag',
-        width: outerWidth/18,
+        width: outerWidth/36,
         formatter:function(rowData){
           return rowData.flag === 0? '成功': '失败';
         }
@@ -275,7 +275,7 @@
       },{
         label: '登录用户',
         prop: 'userName',
-        width: outerWidth/9
+        width: outerWidth/25
       },{
         label: '服务时间',
         prop: 'serviceTime',
@@ -291,7 +291,7 @@
       },{
         label: '接口耗间',
         prop: 'useTime',
-        width: outerWidth/18
+        width: outerWidth/25
       },{
         label: '用户token',
         prop: 'userToken',
@@ -446,10 +446,10 @@
               //     saveAsImage: {}
               // }
           },
-          series: [
+            series: [
               {
-                  name: '页面渲染耗时',
-                  type: 'gauge',
+                name: '页面渲染耗时',
+                type: 'gauge',
                 center: ["50%","50%"],
                 radius: '70%',
                 pointer: { //指针样式
@@ -496,13 +496,13 @@
                         color: '#02fee9'
                     }
                 },
-                  data: [{value: data}]
+                data: [{value: data}]
               }
-          ]
+            ]
       };
       if(!myChartleftbot){
         myChartleftbot = echarts.init(document.getElementById('leftChartbot'));//初始化图表
-      }0
+      }
       myChartleftbot.setOption(option, true);
     }
 
@@ -667,7 +667,7 @@
       display: flex;
       flex-flow: column;
       .left-bot {
-        height: 47%;
+        height: 70%;
         display: flex;
         flex-flow: column;
         justify-content: center;
@@ -687,7 +687,7 @@
       }
       .leftbutton {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
       }
     }
 
@@ -884,35 +884,7 @@
           width: 90%;
           border:none;
           overflow:hidden
-        }
-        .textArea::-webkit-input-placeholder{
-          font-size: 12px;
-          color:#CCC;
-          font-weight:bold;
-          text-align:center;
-          line-height: 400px
-        }    /* 使用webkit内核的浏览器 */
-        .textArea:-moz-placeholder{
-          font-size: 12px;
-          color:#CCC;
-          font-weight:bold;
-          text-align:center;
-          line-height: 400px
-        }                  /* Firefox版本4-18 */
-        .textArea::-moz-placeholder{
-          font-size: 12px;
-          color:#CCC;
-          font-weight:bold;
-          text-align:center;
-          line-height: 400px
-        }                  /* Firefox版本19+ */
-        .textArea:-ms-input-placeholder{
-          font-size: 12px;
-          color:#CCC;
-          font-weight:bold;
-          text-align:center;
-          line-height: 400px
-        }
+        }      
       }
     }
   }
