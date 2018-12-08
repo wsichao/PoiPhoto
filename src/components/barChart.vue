@@ -44,7 +44,7 @@ function initContent(content){
     vueObj[content.ref].$el.id = content.id || createUUID();
 
     var style = {
-        height:  '38%',
+        height:  '20%',
         width:  '80%',
         position: 'relative'
     }

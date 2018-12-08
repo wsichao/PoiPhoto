@@ -1,12 +1,10 @@
 <template>
-    <div>
-        <el-table :data="tableData" height="350px" style="width: 100%;"   @row-click="onRowClick">
+        <el-table :data="tableData" height="250px"  @row-click="onRowClick">
             <el-table-column v-for="col in cols" :prop="col.prop" :label="col.label" :width="130" :formatter="col.formatter" :key="index">
             </el-table-column>
         </el-table>
         <!-- <el-pagination :page-size="pageSize" :current-page="pageNo" layout="prev, pager, next" :total="tableData.length" @current-change="changePage" v-show="tableData.length>0">
         </el-pagination>//跳转按钮 -->
-    </div>
 </template>
 
 <script>
@@ -19,7 +17,7 @@ export default {
         return {
             cols:[],
             pageNo: 1,
-            pageSize: 999,//每页最多13行
+            pageSize: 999,//每页最多xxx行
             tableData: [],
             loading: true
         }
@@ -31,6 +29,7 @@ export default {
     methods: {
         initContent: initContent,
         refreshWidth: refreshWidth,
+        refreshheight: refreshWidth,
         onRowClick: function(){},
         changePage: function(){}
     }
@@ -45,6 +44,15 @@ function refreshWidth(){
     for(var i=0;i<rowArr.length; i++){
         colConfig.forEach(function(o, index){
             rowArr[i].getElementsByClassName('cell')[index].style.width = 150;
+        })
+    }
+}
+function refreshheight(){
+    var colConfig = vueObj[this.$options._parentVnode.data.ref].cols;
+    var rowArr = document.getElementsByClassName('el-table__row');
+    for(var i=0;i<rowArr.length; i++){
+        colConfig.forEach(function(o, index){
+            rowArr[i].getElementsByClassName('cell')[index].style.height = 350;
         })
     }
 }
