@@ -13,16 +13,6 @@ const routerDispatcher = function (app) {
     app.use('/test', function (req, res) {
         res.end('test');
     });
-
-	/**
-	 * 监控统计数据收集
-	 */
-	app.use('/webMonitor/statisCollection', staticCollection);
-
-    /**
-     * 用于接口统计的路由
-     */
-    app.use('/webMonitor/statis', staticView);
 };
 
 export default routerDispatcher;

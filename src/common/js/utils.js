@@ -1,8 +1,6 @@
 /**
  * @description 定义一些公共的方法
  * @file constant.js
- * @author    wuzhen
- * @date      2018/7/4
  *
  * @copyright @Navinfo, all rights reserved.
  */

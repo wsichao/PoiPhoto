@@ -1,3 +1,4 @@
+//打包的核心配置
 'use strict'
 const path = require('path')
 const utils = require('./utils')
@@ -9,20 +10,20 @@ function resolve (dir) {
 }
 
 module.exports = {
-  entry: {
+  entry: {//项目入口
     app: './src/main.js'
   },
-  output: {
-    path: config.build.assetsRoot,
-    filename: '[name].js',
+  output: {//输出
+    path: config.build.assetsRoot,//输出路径
+    filename: '[name].js',//输出名（此处中括号代表保持文件名字保持一致）
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.vue', '.json'],//模块可以省略这些后缀
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      'vue$': 'vue/dist/vue.esm.js',//es模块的规范
       '@': resolve('src'),
     }
   },
@@ -35,7 +36,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'babel-loader',//es6解析插件
         include: [resolve('src'), resolve('test')]
       },
       {

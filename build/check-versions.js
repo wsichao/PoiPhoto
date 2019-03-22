@@ -1,3 +1,4 @@
+//版本检查工具
 'use strict'
 const chalk = require('chalk')
 const semver = require('semver')

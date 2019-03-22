@@ -12,31 +12,15 @@ import routes from './router' // 或者 import routes from './router/index'
 
 Vue.use(ElementUI)
 Vue.use(VueRouter)
-
+//创建路由
 const router = new VueRouter({
   routes
 })
-
-router.beforeEach((to, from, next) => {
-  // if (to.path == '/login') {
-  //   appUtil.removeCurrentUser();
-  // }
-  //
-  // let user = appUtil.getCurrentUser();
-  // if (!user && to.path != '/login' && to.path != '/register' && to.path != '/resetPassword') {
-  //   next({ path: '/login' })
-  // } else {
-  //   next()
-  // }
-  next()
-})
-
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: '#Poi',
   router,
   template: '<App/>',
   components: { App }

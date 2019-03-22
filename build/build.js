@@ -1,3 +1,4 @@
+//构建生产版本/生产包
 'use strict'
 require('./check-versions')()
 
@@ -11,12 +12,12 @@ const webpack = require('webpack')
 const config = require('../config')
 const webpackConfig = require('./webpack.prod.conf')
 
-const spinner = ora('building for production...')
+const spinner = ora('building for production...')//日至输出插件（Loding）
 spinner.start()
 
-rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
+rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {//删掉上次打包之后的东西，重新webpack进行打包
   if (err) throw err
-  webpack(webpackConfig, function (err, stats) {
+  webpack(webpackConfig, function (err, stats) {//函数插件形式打包
     spinner.stop()
     if (err) throw err
     process.stdout.write(stats.toString({

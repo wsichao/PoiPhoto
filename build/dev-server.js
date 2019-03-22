@@ -1,3 +1,4 @@
+//开发下的服务器，原理即启用一个express框架
 'use strict'
 require('./check-versions')()
 
@@ -6,12 +7,12 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
-const opn = require('opn')
+const opn = require('opn')//智能打开文件的插件
 const path = require('path')
-const express = require('express')
+const express = require('express')//框架
 const webpack = require('webpack')
-const proxyMiddleware = require('http-proxy-middleware')
-const webpackConfig = require('./webpack.dev.conf')
+const proxyMiddleware = require('http-proxy-middleware')//http代理插件（例如跨域）
+const webpackConfig = require('./webpack.dev.conf')//开发模式的配置
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port
@@ -45,7 +46,7 @@ const hotMiddleware = require('webpack-hot-middleware')(compiler, {
 
 // enable hot-reload and state-preserving
 // compilation error display
-app.use(hotMiddleware)
+app.use(hotMiddleware)//调用插件，下同
 
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {

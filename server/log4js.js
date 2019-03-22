@@ -1,8 +1,6 @@
 /**
  * @description
  * 日志配置
- * @author    wuzhen
- * @date      2018/03/08
  * @copyright @Navinfo, all rights reserved.
  */
 var log4js = require('log4js');

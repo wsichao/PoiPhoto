@@ -1,7 +1,5 @@
 /**
  * 公共方法
- * @author    wuzhen
- * @date      2018/07/11
  * @copyright @Navinfo, all rights reserved.
  */
 class Utils {
@@ -11,6 +9,12 @@ class Utils {
 	 * 将20180705125959转换为2018 07 05 12:59:59
 	 * @param str
 	 * @return {String}
+	 */
+
+	/**
+	 * 获取单例对象的实例
+	 * @param  {all} str 参数
+	 * @return {class}  单例对象的实例
 	 */
 	static dateFormate(str) {
 		if (!str) {

@@ -1,7 +1,5 @@
 /**
  * 接口返回的数据格式类
- * @author    wuzhen
- * @date      2018/07/10
  * @copyright @Navinfo, all rights reserved.
  */
 class ResJson {
