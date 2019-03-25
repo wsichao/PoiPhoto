@@ -1,17 +1,17 @@
 <template>
   <div class="container" style="z-index:1">
-    <div style=" margin: 30px 0 0 30px">
+    <div class="text">
       <span style="font-size: 28px; color: #fff;">POI照片展示</span>
     </div>
     <div class="img">
-      <el-carousel style="border:1px solid #f2f3f3;" play="false" type="card" prev="color:red" height="650px">
+      <el-carousel style="border:1px solid #f2f3f3;height: 100%;" :autoplay="isAuto" type="card" prev="color:red">
         <el-carousel-item v-for="item in images" :key="item.src">
-          <img :src="item.src" class="img-xys">
+          <img :src="item.src" class="img-xys" style="height: 100%">
         </el-carousel-item>
       </el-carousel>
     </div>
     <div class="input">
-      <el-input style="width: 800px" placeholder="请输入PID" v-model="poiId">
+      <el-input style="width: 800px;" placeholder="请输入PID" v-model="poiId">
         <el-button slot="append" style="color: #000;" @click="PoiPhotoFccpid" icon="el-icon-search"></el-button>
       </el-input>
     </div>
@@ -30,14 +30,15 @@ export default {
       poiPid: '',
       fccPid: '',
       fccPidList: [],
-      images: []
+      images: [],
+      isAuto: false
     }
   },
   methods: {
     async PoiPhotoFccpid() {
       // 按钮触发函数
       if (this.poiId == '') {
-        this.open();
+        this.open()
         return
       }
       var poi_pid = {
@@ -64,8 +65,7 @@ export default {
       // 弹窗
       this.$alert('请检查PID是否正确填写', '警告', {
         confirmButtonText: '确定',
-        callback: action => {
-        }
+        callback: action => {}
       })
     }
   }
@@ -76,41 +76,31 @@ export default {
 .container {
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-flow: column;
-  .title {
+  .text {
     width: 100%;
-    height: 70%;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+    top: 15px;
+    padding-left: 10%;
+    box-sizing: border-box;
+    // left: 10%;
   }
   .input {
     width: 100%;
-    height: 30%;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
+    .el-input {
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
   .img {
     width: 80%;
     height: 70%;
-    margin: 30px 0 0 200px;
-    .el-carousel__item:nth-child(2n) {
-      background-color: #99a9bf;
-    }
-
-    .el-carousel__item:nth-child(2n + 1) {
-      background-color: #d3dce6;
+    margin: 30px auto;
+    .el-carousel {
+      height: 100%;
     }
     .img-xys {
-      display: inline-block;
       height: 100%;
       width: 100%;
-      max-width: 100%;
-      max-height: 100%;
     }
   }
 }
