@@ -18,4 +18,4 @@ var getReq = function (url, param) {
 };
 
 // 第一个接口获取fccpid
-export const poiFccpid = param => { return getReq('http://192.168.4.130:9977/tracks/d/queryPhotoByPid?', param.poi_pid)};
+export const poiFccpid = param => { return getReq('http://fs-road.navinfo.com/dev-tracks/tracks/d/queryPhotoByPid?', param.poi_pid)};

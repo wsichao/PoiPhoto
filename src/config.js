@@ -6,7 +6,7 @@
  */
 
 export const appConfig = {
-  appName: 'PoiPhoto',
+  appName: 'Poi',
   serviceUrl: 'http://localhost:8080'
 }
 

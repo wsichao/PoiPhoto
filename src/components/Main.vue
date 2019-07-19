@@ -53,7 +53,7 @@ export default {
         fccPidList.forEach(element => {
           images.push({
             src:
-              'http://192.168.4.130:9977/tracks/d/queryPhotoByRowkey?rowkey=' +
+              'http://fs-road.navinfo.com/dev-tracks/tracks/d/queryPhotoByRowkey?rowkey=' +
               element +
               '&type=origin'
           })
